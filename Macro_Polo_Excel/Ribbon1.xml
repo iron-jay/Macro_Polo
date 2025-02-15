@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<customUI xmlns="http://schemas.microsoft.com/office/2009/07/customui" onLoad="Ribbon_Load">
+	<ribbon>
+		<tabs>
+			<tab idMso="TabHome">
+				<group id="Macro_Polo"
+					   label="Macro Polo">
+					<button id="Polo"
+								label="Does this file have a macro?"
+								getImage="ButtonImage"
+								size="large"
+								onAction="ButtonClick"
+								screentip="Does this file have a macro?"
+								supertip="Detects if the current file has a macro, detail on its state, and if you can run it." />
+				</group>
+			</tab>
+		</tabs>
+	</ribbon>
+</customUI>

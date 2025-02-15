@@ -1,0 +1,56 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.12.35527.113
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Macro_Polo_Excel", "Macro_Polo_Excel\Macro_Polo_Excel.csproj", "{6C2A2373-03EC-42B8-B85A-14803584EC14}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Macro_Polo_Word", "Macro_Polo_Word\Macro_Polo_Word.csproj", "{A256EB72-BC53-467A-AB5E-84B25970E7A8}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "images", "images", "{CB95A200-A559-4C53-995D-551305523EB9}"
+	ProjectSection(SolutionItems) = preProject
+		images\not_signed_allowed.png = images\not_signed_allowed.png
+		images\not_signed_not_allowed.png = images\not_signed_not_allowed.png
+		images\no_macro.png = images\no_macro.png
+		images\ribbon.png = images\ribbon.png
+		images\signed_allowed.png = images\signed_allowed.png
+		images\signed_not_allowed.png = images\signed_not_allowed.png
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{CF7840C0-BAC5-47EA-B184-1823822DDCF7}"
+	ProjectSection(SolutionItems) = preProject
+		readme.md = readme.md
+	EndProjectSection
+EndProject
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "Macro_Polo_Installer-x64", "Macro_Polo_Installer-x64\Macro_Polo_Installer-x64.vdproj", "{CAB05190-95D7-A0AD-5BBB-19DB118736B1}"
+EndProject
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "Macro_Polo_Installer-x86", "Macro_Polo_Installer-x86\Macro_Polo_Installer-x86.vdproj", "{2F044148-6CC0-2500-78EE-18A004309C76}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{6C2A2373-03EC-42B8-B85A-14803584EC14}.Debug|Any CPU.ActiveCfg = Release|Any CPU
+		{6C2A2373-03EC-42B8-B85A-14803584EC14}.Debug|Any CPU.Build.0 = Release|Any CPU
+		{6C2A2373-03EC-42B8-B85A-14803584EC14}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6C2A2373-03EC-42B8-B85A-14803584EC14}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A256EB72-BC53-467A-AB5E-84B25970E7A8}.Debug|Any CPU.ActiveCfg = Release|Any CPU
+		{A256EB72-BC53-467A-AB5E-84B25970E7A8}.Debug|Any CPU.Build.0 = Release|Any CPU
+		{A256EB72-BC53-467A-AB5E-84B25970E7A8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A256EB72-BC53-467A-AB5E-84B25970E7A8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CAB05190-95D7-A0AD-5BBB-19DB118736B1}.Debug|Any CPU.ActiveCfg = Release
+		{CAB05190-95D7-A0AD-5BBB-19DB118736B1}.Release|Any CPU.ActiveCfg = Release
+		{2F044148-6CC0-2500-78EE-18A004309C76}.Debug|Any CPU.ActiveCfg = Release
+		{2F044148-6CC0-2500-78EE-18A004309C76}.Debug|Any CPU.Build.0 = Release
+		{2F044148-6CC0-2500-78EE-18A004309C76}.Release|Any CPU.ActiveCfg = Release
+		{2F044148-6CC0-2500-78EE-18A004309C76}.Release|Any CPU.Build.0 = Release
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {58AF3D0D-5185-49CC-9FAC-7B0C00B32CB0}
+	EndGlobalSection
+EndGlobal
