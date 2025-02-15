@@ -61,16 +61,6 @@ namespace Macro_Polo_Excel.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
-        /// </summary>
-        internal static System.Drawing.Icon b270cf2a5d775 {
-            get {
-                object obj = ResourceManager.GetObject("b270cf2a5d775", resourceCulture);
-                return ((System.Drawing.Icon)(obj));
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         internal static System.Drawing.Bitmap excel {

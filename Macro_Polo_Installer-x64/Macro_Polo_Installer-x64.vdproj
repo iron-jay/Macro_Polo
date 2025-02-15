@@ -15,38 +15,32 @@
     {
         "Entry"
         {
-        "MsmKey" = "8:_0E9223DE8816474740245E77E29CBAE7"
-        "OwnerKey" = "8:_83D25CC77E9B42D8989EF93AF2429E02"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_0E9223DE8816474740245E77E29CBAE7"
-        "OwnerKey" = "8:_B622E3C543EA43D3B8495A3987C618E0"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_2730DF392B3244314BD893214E760F29"
-        "OwnerKey" = "8:_E2C930C90D224E25BDB0FE0B6C1AF4E5"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_2730DF392B3244314BD893214E760F29"
-        "OwnerKey" = "8:_B622E3C543EA43D3B8495A3987C618E0"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_2730DF392B3244314BD893214E760F29"
-        "OwnerKey" = "8:_83D25CC77E9B42D8989EF93AF2429E02"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_309B95AEA5184FD7B9A0FCE5B9E7F4BD"
+        "MsmKey" = "8:_02FACD2E185D47FEA5A9C9980581FBD1"
         "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_0E9223DE8816474740245E77E29CBAE7"
+        "OwnerKey" = "8:_5B0C6FEA6ECF4DD2BAC4E029FBB64C5F"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_2730DF392B3244314BD893214E760F29"
+        "OwnerKey" = "8:_5B0C6FEA6ECF4DD2BAC4E029FBB64C5F"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_2730DF392B3244314BD893214E760F29"
+        "OwnerKey" = "8:_E632DDA452D44EE79D7F2D2CB5317E70"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_4920D0997978F050FA908C655F534598"
+        "OwnerKey" = "8:_5B0C6FEA6ECF4DD2BAC4E029FBB64C5F"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -58,25 +52,13 @@
         "Entry"
         {
         "MsmKey" = "8:_4920D0997978F050FA908C655F534598"
-        "OwnerKey" = "8:_B622E3C543EA43D3B8495A3987C618E0"
+        "OwnerKey" = "8:_E632DDA452D44EE79D7F2D2CB5317E70"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
         "MsmKey" = "8:_4920D0997978F050FA908C655F534598"
         "OwnerKey" = "8:_0E9223DE8816474740245E77E29CBAE7"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_4920D0997978F050FA908C655F534598"
-        "OwnerKey" = "8:_83D25CC77E9B42D8989EF93AF2429E02"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_4920D0997978F050FA908C655F534598"
-        "OwnerKey" = "8:_E2C930C90D224E25BDB0FE0B6C1AF4E5"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -88,25 +70,31 @@
         "Entry"
         {
         "MsmKey" = "8:_5267042E424FA477ACA4A18620C532C0"
-        "OwnerKey" = "8:_E2C930C90D224E25BDB0FE0B6C1AF4E5"
+        "OwnerKey" = "8:_5B0C6FEA6ECF4DD2BAC4E029FBB64C5F"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
         "MsmKey" = "8:_5267042E424FA477ACA4A18620C532C0"
-        "OwnerKey" = "8:_83D25CC77E9B42D8989EF93AF2429E02"
+        "OwnerKey" = "8:_E632DDA452D44EE79D7F2D2CB5317E70"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
         "MsmKey" = "8:_52B96F8F98CAFC1704AF070CF80F3C7E"
-        "OwnerKey" = "8:_E2C930C90D224E25BDB0FE0B6C1AF4E5"
+        "OwnerKey" = "8:_5B0C6FEA6ECF4DD2BAC4E029FBB64C5F"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
         "MsmKey" = "8:_52B96F8F98CAFC1704AF070CF80F3C7E"
-        "OwnerKey" = "8:_83D25CC77E9B42D8989EF93AF2429E02"
+        "OwnerKey" = "8:_E632DDA452D44EE79D7F2D2CB5317E70"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_5B0C6FEA6ECF4DD2BAC4E029FBB64C5F"
+        "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -117,13 +105,7 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_74B00FA31A60465EB5133523D7BC2F67"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_83D25CC77E9B42D8989EF93AF2429E02"
+        "MsmKey" = "8:_80838A54E53F4A2CA03CD285BD3D52BC"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -136,7 +118,13 @@
         "Entry"
         {
         "MsmKey" = "8:_84E8EEC0FD0E67B018FFB4E000CE68A6"
-        "OwnerKey" = "8:_B622E3C543EA43D3B8495A3987C618E0"
+        "OwnerKey" = "8:_BD3C430D843ACBACE8A5C208B9266CE2"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_84E8EEC0FD0E67B018FFB4E000CE68A6"
+        "OwnerKey" = "8:_E632DDA452D44EE79D7F2D2CB5317E70"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -148,19 +136,7 @@
         "Entry"
         {
         "MsmKey" = "8:_84E8EEC0FD0E67B018FFB4E000CE68A6"
-        "OwnerKey" = "8:_83D25CC77E9B42D8989EF93AF2429E02"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_84E8EEC0FD0E67B018FFB4E000CE68A6"
-        "OwnerKey" = "8:_BD3C430D843ACBACE8A5C208B9266CE2"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_84E8EEC0FD0E67B018FFB4E000CE68A6"
-        "OwnerKey" = "8:_E2C930C90D224E25BDB0FE0B6C1AF4E5"
+        "OwnerKey" = "8:_5B0C6FEA6ECF4DD2BAC4E029FBB64C5F"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -172,19 +148,13 @@
         "Entry"
         {
         "MsmKey" = "8:_A7CCECCDA579A0CD5F28D9BBE3F36351"
-        "OwnerKey" = "8:_B622E3C543EA43D3B8495A3987C618E0"
+        "OwnerKey" = "8:_E632DDA452D44EE79D7F2D2CB5317E70"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
         "MsmKey" = "8:_A7CCECCDA579A0CD5F28D9BBE3F36351"
-        "OwnerKey" = "8:_83D25CC77E9B42D8989EF93AF2429E02"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_A7CCECCDA579A0CD5F28D9BBE3F36351"
-        "OwnerKey" = "8:_E2C930C90D224E25BDB0FE0B6C1AF4E5"
+        "OwnerKey" = "8:_5B0C6FEA6ECF4DD2BAC4E029FBB64C5F"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -195,56 +165,38 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_B622E3C543EA43D3B8495A3987C618E0"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
         "MsmKey" = "8:_BD3C430D843ACBACE8A5C208B9266CE2"
-        "OwnerKey" = "8:_E2C930C90D224E25BDB0FE0B6C1AF4E5"
+        "OwnerKey" = "8:_E632DDA452D44EE79D7F2D2CB5317E70"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
-        "MsmKey" = "8:_E2C930C90D224E25BDB0FE0B6C1AF4E5"
+        "MsmKey" = "8:_E632DDA452D44EE79D7F2D2CB5317E70"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_309B95AEA5184FD7B9A0FCE5B9E7F4BD"
+        "OwnerKey" = "8:_80838A54E53F4A2CA03CD285BD3D52BC"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_B622E3C543EA43D3B8495A3987C618E0"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_83D25CC77E9B42D8989EF93AF2429E02"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_0E9223DE8816474740245E77E29CBAE7"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_E2C930C90D224E25BDB0FE0B6C1AF4E5"
+        "OwnerKey" = "8:_E632DDA452D44EE79D7F2D2CB5317E70"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
         "OwnerKey" = "8:_BD3C430D843ACBACE8A5C208B9266CE2"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_5B0C6FEA6ECF4DD2BAC4E029FBB64C5F"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -257,6 +209,12 @@
         {
         "MsmKey" = "8:_UNDEFINED"
         "OwnerKey" = "8:_A7CCECCDA579A0CD5F28D9BBE3F36351"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_0E9223DE8816474740245E77E29CBAE7"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -378,6 +336,26 @@
         }
         "File"
         {
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_02FACD2E185D47FEA5A9C9980581FBD1"
+            {
+            "SourcePath" = "8:..\\Macro_Polo_Word\\bin\\Release\\Macro_Polo_Word.dll.manifest"
+            "TargetName" = "8:Macro_Polo_Word.dll.manifest"
+            "Tag" = "8:"
+            "Folder" = "8:_9A363B712F8E4AFE9488D8B32AD7314B"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
             "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_0E9223DE8816474740245E77E29CBAE7"
             {
             "AssemblyRegister" = "3:1"
@@ -438,37 +416,6 @@
             "Register" = "3:1"
             "Exclude" = "11:FALSE"
             "IsDependency" = "11:TRUE"
-            "IsolateTo" = "8:"
-            }
-            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_309B95AEA5184FD7B9A0FCE5B9E7F4BD"
-            {
-            "AssemblyRegister" = "3:1"
-            "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:Microsoft.Office.Tools.Common.v4.0.Utilities, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL"
-                "ScatterAssemblies"
-                {
-                    "_309B95AEA5184FD7B9A0FCE5B9E7F4BD"
-                    {
-                    "Name" = "8:Microsoft.Office.Tools.Common.v4.0.Utilities.dll"
-                    "Attributes" = "3:512"
-                    }
-                }
-            "SourcePath" = "8:C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\Common7\\IDE\\ReferenceAssemblies\\v4.0\\Microsoft.Office.Tools.Common.v4.0.Utilities.dll"
-            "TargetName" = "8:"
-            "Tag" = "8:"
-            "Folder" = "8:_9A363B712F8E4AFE9488D8B32AD7314B"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
             "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_4920D0997978F050FA908C655F534598"
@@ -604,10 +551,21 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_74B00FA31A60465EB5133523D7BC2F67"
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_80838A54E53F4A2CA03CD285BD3D52BC"
             {
-            "SourcePath" = "8:..\\Macro_Polo_Word\\bin\\Release\\Macro_Polo_Word.dll.manifest"
-            "TargetName" = "8:Macro_Polo_Word.dll.manifest"
+            "AssemblyRegister" = "3:1"
+            "AssemblyIsInGAC" = "11:FALSE"
+            "AssemblyAsmDisplayName" = "8:Microsoft.Office.Tools.Common.v4.0.Utilities, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL"
+                "ScatterAssemblies"
+                {
+                    "_80838A54E53F4A2CA03CD285BD3D52BC"
+                    {
+                    "Name" = "8:Microsoft.Office.Tools.Common.v4.0.Utilities.dll"
+                    "Attributes" = "3:512"
+                    }
+                }
+            "SourcePath" = "8:C:\\Program Files\\Microsoft Visual Studio\\2022\\Community\\Common7\\IDE\\ReferenceAssemblies\\v4.0\\Microsoft.Office.Tools.Common.v4.0.Utilities.dll"
+            "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_9A363B712F8E4AFE9488D8B32AD7314B"
             "Condition" = "8:"
@@ -690,37 +648,6 @@
             {
             "SourcePath" = "8:..\\Macro_Polo_Excel\\bin\\Release\\Macro_Polo_Excel.vsto"
             "TargetName" = "8:Macro_Polo_Excel.vsto"
-            "Tag" = "8:"
-            "Folder" = "8:_BDFE4A11DFA04E5295E069CE63B2A08E"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
-            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_B622E3C543EA43D3B8495A3987C618E0"
-            {
-            "AssemblyRegister" = "3:1"
-            "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:Macro_Polo_Excel, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL"
-                "ScatterAssemblies"
-                {
-                    "_B622E3C543EA43D3B8495A3987C618E0"
-                    {
-                    "Name" = "8:Macro_Polo_Excel.dll"
-                    "Attributes" = "3:512"
-                    }
-                }
-            "SourcePath" = "8:..\\Macro_Polo_Excel\\bin\\Release\\Macro_Polo_Excel.dll"
-            "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_BDFE4A11DFA04E5295E069CE63B2A08E"
             "Condition" = "8:"
@@ -847,7 +774,7 @@
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:Macro Polo x64"
         "ProductCode" = "8:{5A461661-3DA3-4DE8-889A-3B8E66508118}"
-        "PackageCode" = "8:{A4E3C7F7-C784-4265-A2C8-C942CD728CBF}"
+        "PackageCode" = "8:{7CF5B61B-7A5D-4328-B52F-4CCA05D1287F}"
         "UpgradeCode" = "8:{0DED5571-EAE8-4D5A-9015-5165ADB10897}"
         "AspNetVersion" = "8:"
         "RestartWWWService" = "11:FALSE"
@@ -864,8 +791,8 @@
         "Keywords" = "8:"
         "ARPCOMMENTS" = "8:"
         "ARPURLINFOABOUT" = "8:"
-        "ARPPRODUCTICON" = "8:"
-        "ARPIconIndex" = "3:0"
+        "ARPPRODUCTICON" = "8:_5B0C6FEA6ECF4DD2BAC4E029FBB64C5F"
+        "ARPIconIndex" = "3:32512"
         "SearchPath" = "8:"
         "UseSystemSearchPath" = "11:TRUE"
         "TargetPlatform" = "3:1"
@@ -1528,7 +1455,7 @@
         }
         "ProjectOutput"
         {
-            "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_83D25CC77E9B42D8989EF93AF2429E02"
+            "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_5B0C6FEA6ECF4DD2BAC4E029FBB64C5F"
             {
             "SourcePath" = "8:..\\Macro_Polo_Excel\\obj\\Release\\Macro_Polo_Excel.dll"
             "TargetName" = "8:"
@@ -1556,7 +1483,7 @@
                 {
                 }
             }
-            "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_E2C930C90D224E25BDB0FE0B6C1AF4E5"
+            "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_E632DDA452D44EE79D7F2D2CB5317E70"
             {
             "SourcePath" = "8:..\\Macro_Polo_Word\\obj\\Release\\Macro_Polo_Word.dll"
             "TargetName" = "8:"

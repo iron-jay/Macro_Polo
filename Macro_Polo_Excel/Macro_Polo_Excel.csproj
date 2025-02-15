@@ -249,7 +249,7 @@
     <EmbeddedResource Include="Resources\excel.png" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Resources\b270cf2a5d775.ico" />
+    <None Include="Resources\b270cf2a5d775.ico" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
@@ -263,6 +263,9 @@
   </PropertyGroup>
   <PropertyGroup>
     <ManifestCertificateThumbprint>82E0389B4B460BD970558956B81E78045AAC2736</ManifestCertificateThumbprint>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>Resources\b270cf2a5d775.ico</ApplicationIcon>
   </PropertyGroup>
   <!-- Include the build rules for a C# project. -->
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
