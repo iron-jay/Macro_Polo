@@ -1,0 +1,42 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net472</TargetFramework>
+    <!-- Fixed so the old-style add-in projects can reference this one by GUID. -->
+    <ProjectGuid>{3F2A6C1E-9D44-4C7B-8E52-0A1B7C6D5E90}</ProjectGuid>
+    <RootNamespace>Macro_Polo.Core</RootNamespace>
+    <AssemblyName>Macro_Polo.Core</AssemblyName>
+    <LangVersion>7.3</LangVersion>
+    <GenerateAssemblyInfo>true</GenerateAssemblyInfo>
+    <Company>Macro Polo</Company>
+    <Product>Macro Polo</Product>
+    <Version>1.2.0</Version>
+    <!--
+      The assembly version is pinned because it appears in the COM registration the installer
+      writes; letting it track the product version would silently invalidate an installed
+      machine's registration on every release. The file version still moves with Version above.
+      (ComVisible is not a generated attribute, so it lives in Properties\AssemblyInfo.cs.)
+    -->
+    <AssemblyVersion>1.0.0.0</AssemblyVersion>
+    <FileVersion>1.2.0.0</FileVersion>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Configuration" />
+  </ItemGroup>
+
+  <!-- Lets this project build on a machine or CI runner with no .NET Framework targeting pack. -->
+  <ItemGroup>
+    <PackageReference Include="Microsoft.NETFramework.ReferenceAssemblies" Version="1.0.3" PrivateAssets="all" />
+  </ItemGroup>
+
+  <!--
+    This library deliberately takes no dependency on Office, VSTO or the interop assemblies. That
+    keeps the macro decision logic testable on any machine and buildable in CI, where no Office
+    developer tooling is installed. The VSTO glue that cannot avoid those references lives in
+    ..\Shared and is linked into the two add-in projects, which already resolve them.
+  -->
+
+</Project>

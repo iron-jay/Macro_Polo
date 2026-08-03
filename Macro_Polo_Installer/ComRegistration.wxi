@@ -1,0 +1,177 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!--
+  COM registration for the two add-in classes and the task pane control, for ONE registry view.
+
+  Included twice by ComRegistration.wxs - once for the 64-bit view and once for the 32-bit one -
+  with $(Bitness) and $(Suffix) set accordingly. Office reads its add-in and class registration from
+  the registry view matching its own architecture, so a single package has to write both if it is to
+  serve 32-bit and 64-bit Office alike. The payload assemblies are AnyCPU and shared between them;
+  only these registry entries differ.
+
+  These entries are what `regasm /codebase` would write, authored by hand so that installing never
+  has to shell out to regasm - which would tie the install to a particular .NET Framework directory
+  and give no clean uninstall. The values were generated with `regasm /regfile` and transcribed, so
+  they match what the tooling produces.
+
+  Two things here are load-bearing:
+
+  * CodeBase. The assemblies are not strong-named and are not in the GAC, so without it the CLR has
+    no way to find them from a COM activation and Office silently fails to load the add-in.
+  * The assembly versions are pinned in the projects for this reason. If an assembly version changes
+    without these being updated to match, the registration points at a version that cannot be bound
+    and the add-in stops loading.
+-->
+<Include xmlns="http://wixtoolset.org/schemas/v4/wxs">
+
+  <Fragment>
+    <ComponentGroup Id="WordComRegistration$(Suffix)" Directory="$(RegistryDirectory)">
+      <Component Id="WordAddInClass$(Suffix)" Bitness="$(Bitness)">
+        <RegistryKey Root="HKCR" Key="CLSID\{$(WordAddInClsid)}" ForceDeleteOnUninstall="yes">
+          <RegistryValue Type="string" Value="Macro_Polo_Word.WordAddIn" KeyPath="yes" />
+
+          <RegistryKey Key="InprocServer32">
+            <RegistryValue Type="string" Value="mscoree.dll" />
+            <RegistryValue Type="string" Name="ThreadingModel" Value="Both" />
+            <RegistryValue Type="string" Name="Class" Value="Macro_Polo_Word.WordAddIn" />
+            <RegistryValue Type="string" Name="Assembly" Value="Macro_Polo_Word, Version=$(AssemblyVersion), Culture=neutral, PublicKeyToken=null" />
+            <RegistryValue Type="string" Name="RuntimeVersion" Value="$(RuntimeVersion)" />
+            <RegistryValue Type="string" Name="CodeBase" Value="file:///[INSTALLFOLDER]Macro_Polo_Word.dll" />
+
+            <RegistryKey Key="$(AssemblyVersion)">
+              <RegistryValue Type="string" Name="Class" Value="Macro_Polo_Word.WordAddIn" />
+              <RegistryValue Type="string" Name="Assembly" Value="Macro_Polo_Word, Version=$(AssemblyVersion), Culture=neutral, PublicKeyToken=null" />
+              <RegistryValue Type="string" Name="RuntimeVersion" Value="$(RuntimeVersion)" />
+              <RegistryValue Type="string" Name="CodeBase" Value="file:///[INSTALLFOLDER]Macro_Polo_Word.dll" />
+            </RegistryKey>
+          </RegistryKey>
+
+          <RegistryKey Key="ProgId">
+            <RegistryValue Type="string" Value="Macro_Polo.WordAddIn" />
+          </RegistryKey>
+
+          <RegistryKey Key="Implemented Categories\$(ManagedCategory)" ForceCreateOnInstall="yes" />
+        </RegistryKey>
+
+        <RegistryKey Root="HKCR" Key="Macro_Polo.WordAddIn" ForceDeleteOnUninstall="yes">
+          <RegistryValue Type="string" Value="Macro_Polo_Word.WordAddIn" />
+          <RegistryKey Key="CLSID">
+            <RegistryValue Type="string" Value="{$(WordAddInClsid)}" />
+          </RegistryKey>
+        </RegistryKey>
+      </Component>
+
+      <!--
+        Office finds the add-in by looking for a key named after its ProgID. There is no Manifest
+        value here: that was the VSTO ClickOnce hand-off, and it is exactly what this design does
+        away with.
+      -->
+      <Component Id="WordAddInRegistration$(Suffix)" Bitness="$(Bitness)">
+        <RegistryKey Root="HKLM" Key="SOFTWARE\Microsoft\Office\Word\Addins\Macro_Polo.WordAddIn" ForceDeleteOnUninstall="yes">
+          <RegistryValue Type="string" Name="FriendlyName" Value="Macro Polo" KeyPath="yes" />
+          <RegistryValue Type="string" Name="Description" Value="Shows whether this document contains macros and whether your settings will run them." />
+          <!-- 3 = load at startup, and keep loading it. -->
+          <RegistryValue Type="integer" Name="LoadBehavior" Value="3" />
+        </RegistryKey>
+      </Component>
+    </ComponentGroup>
+  </Fragment>
+
+  <Fragment>
+    <ComponentGroup Id="ExcelComRegistration$(Suffix)" Directory="$(RegistryDirectory)">
+      <Component Id="ExcelAddInClass$(Suffix)" Bitness="$(Bitness)">
+        <RegistryKey Root="HKCR" Key="CLSID\{$(ExcelAddInClsid)}" ForceDeleteOnUninstall="yes">
+          <RegistryValue Type="string" Value="Macro_Polo_Excel.ExcelAddIn" KeyPath="yes" />
+
+          <RegistryKey Key="InprocServer32">
+            <RegistryValue Type="string" Value="mscoree.dll" />
+            <RegistryValue Type="string" Name="ThreadingModel" Value="Both" />
+            <RegistryValue Type="string" Name="Class" Value="Macro_Polo_Excel.ExcelAddIn" />
+            <RegistryValue Type="string" Name="Assembly" Value="Macro_Polo_Excel, Version=$(AssemblyVersion), Culture=neutral, PublicKeyToken=null" />
+            <RegistryValue Type="string" Name="RuntimeVersion" Value="$(RuntimeVersion)" />
+            <RegistryValue Type="string" Name="CodeBase" Value="file:///[INSTALLFOLDER]Macro_Polo_Excel.dll" />
+
+            <RegistryKey Key="$(AssemblyVersion)">
+              <RegistryValue Type="string" Name="Class" Value="Macro_Polo_Excel.ExcelAddIn" />
+              <RegistryValue Type="string" Name="Assembly" Value="Macro_Polo_Excel, Version=$(AssemblyVersion), Culture=neutral, PublicKeyToken=null" />
+              <RegistryValue Type="string" Name="RuntimeVersion" Value="$(RuntimeVersion)" />
+              <RegistryValue Type="string" Name="CodeBase" Value="file:///[INSTALLFOLDER]Macro_Polo_Excel.dll" />
+            </RegistryKey>
+          </RegistryKey>
+
+          <RegistryKey Key="ProgId">
+            <RegistryValue Type="string" Value="Macro_Polo.ExcelAddIn" />
+          </RegistryKey>
+
+          <RegistryKey Key="Implemented Categories\$(ManagedCategory)" ForceCreateOnInstall="yes" />
+        </RegistryKey>
+
+        <RegistryKey Root="HKCR" Key="Macro_Polo.ExcelAddIn" ForceDeleteOnUninstall="yes">
+          <RegistryValue Type="string" Value="Macro_Polo_Excel.ExcelAddIn" />
+          <RegistryKey Key="CLSID">
+            <RegistryValue Type="string" Value="{$(ExcelAddInClsid)}" />
+          </RegistryKey>
+        </RegistryKey>
+      </Component>
+
+      <Component Id="ExcelAddInRegistration$(Suffix)" Bitness="$(Bitness)">
+        <RegistryKey Root="HKLM" Key="SOFTWARE\Microsoft\Office\Excel\Addins\Macro_Polo.ExcelAddIn" ForceDeleteOnUninstall="yes">
+          <RegistryValue Type="string" Name="FriendlyName" Value="Macro Polo" KeyPath="yes" />
+          <RegistryValue Type="string" Name="Description" Value="Shows whether this workbook contains macros and whether your settings will run them." />
+          <RegistryValue Type="integer" Name="LoadBehavior" Value="3" />
+        </RegistryKey>
+      </Component>
+    </ComponentGroup>
+  </Fragment>
+
+  <Fragment>
+    <!--
+      Shared by both add-ins, so this group is referenced by both features and Windows Installer
+      reference-counts it. Installing only one add-in still gets the banner; removing one while the
+      other stays installed leaves it in place.
+    -->
+    <ComponentGroup Id="CoreComRegistration$(Suffix)" Directory="$(RegistryDirectory)">
+      <Component Id="BannerControlClass$(Suffix)" Bitness="$(Bitness)">
+        <RegistryKey Root="HKCR" Key="CLSID\{$(BannerClsid)}" ForceDeleteOnUninstall="yes">
+          <RegistryValue Type="string" Value="Macro_Polo.Core.MacroStatusBanner" KeyPath="yes" />
+
+          <RegistryKey Key="InprocServer32">
+            <RegistryValue Type="string" Value="mscoree.dll" />
+            <RegistryValue Type="string" Name="ThreadingModel" Value="Both" />
+            <RegistryValue Type="string" Name="Class" Value="Macro_Polo.Core.MacroStatusBanner" />
+            <RegistryValue Type="string" Name="Assembly" Value="Macro_Polo.Core, Version=$(AssemblyVersion), Culture=neutral, PublicKeyToken=null" />
+            <RegistryValue Type="string" Name="RuntimeVersion" Value="$(RuntimeVersion)" />
+            <RegistryValue Type="string" Name="CodeBase" Value="file:///[INSTALLFOLDER]Macro_Polo.Core.dll" />
+
+            <RegistryKey Key="$(AssemblyVersion)">
+              <RegistryValue Type="string" Name="Class" Value="Macro_Polo.Core.MacroStatusBanner" />
+              <RegistryValue Type="string" Name="Assembly" Value="Macro_Polo.Core, Version=$(AssemblyVersion), Culture=neutral, PublicKeyToken=null" />
+              <RegistryValue Type="string" Name="RuntimeVersion" Value="$(RuntimeVersion)" />
+              <RegistryValue Type="string" Name="CodeBase" Value="file:///[INSTALLFOLDER]Macro_Polo.Core.dll" />
+            </RegistryKey>
+          </RegistryKey>
+
+          <RegistryKey Key="ProgId">
+            <RegistryValue Type="string" Value="Macro_Polo.StatusBanner" />
+          </RegistryKey>
+
+          <RegistryKey Key="Implemented Categories\$(ManagedCategory)" ForceCreateOnInstall="yes" />
+
+          <!--
+            Marks the class as an ActiveX control. regasm does not write this, but Office's task
+            pane factory creates the hosted control as one, and OLE control containers look for
+            this key when deciding whether a class can be sited.
+          -->
+          <RegistryKey Key="Control" ForceCreateOnInstall="yes" />
+        </RegistryKey>
+
+        <RegistryKey Root="HKCR" Key="Macro_Polo.StatusBanner" ForceDeleteOnUninstall="yes">
+          <RegistryValue Type="string" Value="Macro_Polo.Core.MacroStatusBanner" />
+          <RegistryKey Key="CLSID">
+            <RegistryValue Type="string" Value="{$(BannerClsid)}" />
+          </RegistryKey>
+        </RegistryKey>
+      </Component>
+    </ComponentGroup>
+  </Fragment>
+
+</Include>

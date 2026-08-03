@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Brings in the COM registration twice: once for each registry view.
+
+  Office reads its add-in and class registration from the registry view that matches its own
+  architecture, so 32-bit Office cannot see a registration written only to the 64-bit view. The
+  package therefore writes both, which is what lets one MSI serve either bitness of Office. The
+  payload assemblies are AnyCPU and shared - only these registry entries are duplicated.
+
+  The actual authoring lives in ComRegistration.wxi so that the two views cannot drift apart.
+-->
+<Wix xmlns="http://wixtoolset.org/schemas/v4/wxs">
+
+  <?define ManagedCategory = "{62C8FE65-4EBB-45E7-B440-6E39B2CDBF29}" ?>
+  <?define RuntimeVersion = "v4.0.30319" ?>
+  <?define AssemblyVersion = "1.0.0.0" ?>
+
+  <!--
+    None of these components install a file, so the directory they are attached to is a formality.
+    It still has to be declared, and a 32-bit component may not be attached to a 64-bit directory
+    (ICE80), so the 32-bit set hangs off TARGETDIR. The CodeBase values reference [INSTALLFOLDER]
+    as a property, which resolves the same either way.
+  -->
+  <?define Suffix = "64" ?>
+  <?define Bitness = "always64" ?>
+  <?define RegistryDirectory = "INSTALLFOLDER" ?>
+  <?include ComRegistration.wxi ?>
+  <?undef Suffix ?>
+  <?undef Bitness ?>
+  <?undef RegistryDirectory ?>
+
+  <?define Suffix = "32" ?>
+  <?define Bitness = "always32" ?>
+  <?define RegistryDirectory = "TARGETDIR" ?>
+  <?include ComRegistration.wxi ?>
+  <?undef Suffix ?>
+  <?undef Bitness ?>
+  <?undef RegistryDirectory ?>
+
+</Wix>

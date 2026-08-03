@@ -1,0 +1,40 @@
+name: build
+
+on:
+  push:
+    branches: [master]
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  core:
+    name: Core library and tests
+    runs-on: windows-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '8.0.x'
+
+      # Only Macro_Polo.Core and its tests are built here. The two add-in projects are VSTO, which
+      # needs the "Office/SharePoint development" Visual Studio workload that hosted runners do not
+      # carry. Keeping the decision logic in a project with no Office dependency is what makes this
+      # job possible at all - it is the part worth guarding.
+      - name: Restore
+        run: dotnet restore Macro_Polo.Core.Tests\Macro_Polo.Core.Tests.csproj
+
+      - name: Build
+        run: dotnet build Macro_Polo.Core.Tests\Macro_Polo.Core.Tests.csproj --configuration Release --no-restore
+
+      - name: Test
+        run: dotnet test Macro_Polo.Core.Tests\Macro_Polo.Core.Tests.csproj --configuration Release --no-build --logger "trx;LogFileName=results.trx"
+
+      - name: Publish test results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: test-results
+          path: '**/TestResults/*.trx'
+          if-no-files-found: ignore

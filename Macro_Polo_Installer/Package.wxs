@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Per-machine installer for the Word and Excel add-ins.
+
+  The add-ins are native COM shared add-ins. Installing them is a file copy plus registry entries:
+  there are no ClickOnce manifests, nothing to sign, and no VSTO runtime to depend on. See
+  ComRegistration.wxs for the class registration.
+
+  This replaces the two Visual Studio Installer (.vdproj) projects, which need a deprecated Visual
+  Studio extension and cannot be built by MSBuild at all.
+-->
+<Wix xmlns="http://wixtoolset.org/schemas/v4/wxs">
+
+  <Package Name="Macro Polo"
+           Manufacturer="Macro Polo"
+           Version="$(ProductVersion)"
+           UpgradeCode="8F3C2A15-6D74-4E9B-B052-9C7A1E4D6F30"
+           Scope="perMachine"
+           Compressed="yes">
+
+    <SummaryInformation Description="Shows whether an Office document contains macros and whether your settings will run them." />
+
+    <!-- Without ARPPRODUCTICON the entry in Apps and Features shows the generic installer icon. -->
+    <Icon Id="MacroPolo.ico" SourceFile="$(IconFile)" />
+    <Property Id="ARPPRODUCTICON" Value="MacroPolo.ico" />
+    <Property Id="ARPHELPLINK" Value="https://github.com/iron-jay/Macro_Polo" />
+
+    <!--
+      The upgrade code is carried over from the VSTO-based package deliberately, so that installing
+      this replaces an earlier install rather than sitting alongside it. That matters more than
+      usual here: the old package left a Manifest value under Office's Addins key pointing at a
+      .vsto file, and a major upgrade is what removes it.
+    -->
+    <MajorUpgrade DowngradeErrorMessage="A newer version of [ProductName] is already installed." />
+    <MediaTemplate EmbedCab="yes" />
+
+    <!--
+      Office keeps a loaded add-in's files locked, so upgrading over an open Word or Excel would
+      otherwise schedule a reboot.
+    -->
+    <Property Id="MSIRESTARTMANAGERCONTROL" Value="Disable" />
+
+    <!--
+      The .NET Framework NDP key is reflected into both registry views, so one 32-bit search is
+      enough and is also correct on 32-bit Windows. Using a 64-bit locator here would additionally
+      trip ICE80 when building the x86 package.
+    -->
+    <Property Id="NETFXRELEASE">
+      <RegistrySearch Id="NetFxRelease" Root="HKLM"
+                      Key="SOFTWARE\Microsoft\NET Framework Setup\NDP\v4\Full"
+                      Name="Release" Type="raw" Bitness="always32" />
+    </Property>
+    <!-- 461808 is the release key for .NET Framework 4.7.2, which the add-ins target. -->
+    <Launch Condition="Installed OR NETFXRELEASE &gt;= &quot;#461808&quot;"
+            Message="Macro Polo requires the .NET Framework 4.7.2 or later. Please install it and run this installer again." />
+
+    <!--
+      Both add-ins are installed by default. Either can be left out:
+        msiexec /i Macro_Polo-x64.msi ADDLOCAL=WordAddIn
+    -->
+    <Feature Id="WordAddIn" Title="Word add-in" Description="Adds Macro Polo to Microsoft Word." Level="1">
+      <ComponentGroupRef Id="WordComponents" />
+      <ComponentGroupRef Id="WordComRegistration64" />
+      <ComponentGroupRef Id="WordComRegistration32" />
+      <ComponentGroupRef Id="CoreComponents" />
+      <ComponentGroupRef Id="CoreComRegistration64" />
+      <ComponentGroupRef Id="CoreComRegistration32" />
+    </Feature>
+
+    <Feature Id="ExcelAddIn" Title="Excel add-in" Description="Adds Macro Polo to Microsoft Excel." Level="1">
+      <ComponentGroupRef Id="ExcelComponents" />
+      <ComponentGroupRef Id="ExcelComRegistration64" />
+      <ComponentGroupRef Id="ExcelComRegistration32" />
+      <ComponentGroupRef Id="CoreComponents" />
+      <ComponentGroupRef Id="CoreComRegistration64" />
+      <ComponentGroupRef Id="CoreComRegistration32" />
+    </Feature>
+
+    <Feature Id="Configuration" Title="Configuration" Description="Machine-wide add-in settings." Level="1">
+      <ComponentGroupRef Id="ConfigurationComponents" />
+    </Feature>
+
+  </Package>
+
+  <Fragment>
+    <!--
+      A flat directory. The two add-ins share Macro_Polo.Core.dll, which also carries the task pane
+      control: it is registered once, under one class id, so there must be exactly one copy of it
+      on disk for the CodeBase in that registration to point at.
+    -->
+    <StandardDirectory Id="ProgramFiles6432Folder">
+      <Directory Id="INSTALLFOLDER" Name="Macro Polo" />
+    </StandardDirectory>
+  </Fragment>
+
+  <Fragment>
+    <ComponentGroup Id="WordComponents" Directory="INSTALLFOLDER">
+      <Component Id="WordAddInAssembly">
+        <File Source="$(WordBin)Macro_Polo_Word.dll" KeyPath="yes" />
+      </Component>
+    </ComponentGroup>
+  </Fragment>
+
+  <Fragment>
+    <ComponentGroup Id="ExcelComponents" Directory="INSTALLFOLDER">
+      <Component Id="ExcelAddInAssembly">
+        <File Source="$(ExcelBin)Macro_Polo_Excel.dll" KeyPath="yes" />
+      </Component>
+    </ComponentGroup>
+  </Fragment>
+
+  <Fragment>
+    <ComponentGroup Id="CoreComponents" Directory="INSTALLFOLDER">
+      <Component Id="CoreAssembly">
+        <File Source="$(WordBin)Macro_Polo.Core.dll" KeyPath="yes" />
+      </Component>
+    </ComponentGroup>
+  </Fragment>
+
+  <Fragment>
+    <ComponentGroup Id="ConfigurationComponents" Directory="INSTALLFOLDER">
+      <!--
+        Optional, and deliberately not written unless asked for:
+          msiexec /i Macro_Polo-x64.msi AUTOSHOW=2
+
+        A machine-wide value takes precedence over the user's own, so writing a default here would
+        quietly stop users changing the setting for themselves.
+      -->
+      <Component Id="AutoShowSetting" Condition="AUTOSHOW">
+        <RegistryValue Root="HKLM" Key="SOFTWARE\Macro_Polo" Name="AutoShow"
+                       Type="integer" Value="[AUTOSHOW]" KeyPath="yes" />
+      </Component>
+    </ComponentGroup>
+  </Fragment>
+
+</Wix>

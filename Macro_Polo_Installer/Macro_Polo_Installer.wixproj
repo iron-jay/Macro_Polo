@@ -1,0 +1,35 @@
+﻿<Project Sdk="WixToolset.Sdk/6.0.2">
+
+  <PropertyGroup>
+    <!--
+      One project builds both bitnesses: pass -p:Platform=x64 or -p:Platform=x86. The bitness is
+      not cosmetic. Office reads its add-in registration from the registry view matching its own
+      architecture, so a 32-bit Office installation will not see a registration written by a
+      64-bit package, and vice versa.
+    -->
+    <Platform Condition="'$(Platform)' == ''">x64</Platform>
+    <Configuration Condition="'$(Configuration)' == ''">Release</Configuration>
+    <OutputName>Macro_Polo</OutputName>
+    <OutputType>Package</OutputType>
+    <!-- Bumped from 1.2.x so that installing this replaces the previous, VSTO-based, package. -->
+    <ProductVersion>1.4.0</ProductVersion>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <!--
+      The class ids must match the Guid attributes on WordAddIn, ExcelAddIn and MacroStatusBanner.
+      They are repeated here rather than harvested because harvesting would require running a
+      registration tool during the build.
+    -->
+    <DefineConstants>
+      ProductVersion=$(ProductVersion);
+      WordAddInClsid=1B9E6F42-7A35-4C80-9D13-2E5C4A8B7061;
+      ExcelAddInClsid=6A4D3C21-8E97-45B2-A0F6-3D7B1E9C5842;
+      BannerClsid=D2E7B4A6-3C81-4F52-9E07-5B6A1C8D4F20;
+      IconFile=$(MSBuildThisFileDirectory)..\images\Macro_Polo.ico;
+      WordBin=$(MSBuildThisFileDirectory)..\Macro_Polo_Word\bin\$(Configuration)\;
+      ExcelBin=$(MSBuildThisFileDirectory)..\Macro_Polo_Excel\bin\$(Configuration)\
+    </DefineConstants>
+  </PropertyGroup>
+
+</Project>

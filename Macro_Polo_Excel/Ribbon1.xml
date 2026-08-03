@@ -1,17 +1,23 @@
-﻿<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <customUI xmlns="http://schemas.microsoft.com/office/2009/07/customui" onLoad="Ribbon_Load">
 	<ribbon>
 		<tabs>
 			<tab idMso="TabHome">
 				<group id="Macro_Polo"
 					   label="Macro Polo">
-					<button id="Polo"
-								label="Does this file have a macro?"
+					<!--
+						A toggle rather than a button: the banner can be dismissed, so the control
+						has to be able to say whether it is currently showing. getPressed is
+						re-read whenever the add-in invalidates the control.
+					-->
+					<toggleButton id="Polo"
+								label="Macro check"
 								getImage="ButtonImage"
 								size="large"
 								onAction="ButtonClick"
-								screentip="Does this file have a macro?"
-								supertip="Detects if the current file has a macro, detail on its state, and if you can run it." />
+								getPressed="ButtonPressed"
+								screentip="Does this workbook have a macro?"
+								supertip="Shows whether this workbook contains macros, whether they are signed, and whether your macro settings will let them run." />
 				</group>
 			</tab>
 		</tabs>

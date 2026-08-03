@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+
+  <data name="PaneTitle" xml:space="preserve">
+    <value>Macro status</value>
+  </data>
+
+  <data name="Title_NoMacros" xml:space="preserve">
+    <value>No macros</value>
+  </data>
+  <data name="Detail_NoMacros" xml:space="preserve">
+    <value>This file contains no macro code.</value>
+  </data>
+
+  <data name="Title_RunsSilentlyTrustedLocation" xml:space="preserve">
+    <value>Macros run automatically</value>
+  </data>
+  <data name="Detail_RunsSilentlyTrustedLocation" xml:space="preserve">
+    <value>This file is in a Trusted Location, so its macros run without a prompt whatever your macro settings say.</value>
+  </data>
+
+  <data name="Title_RunsSilently" xml:space="preserve">
+    <value>Macros run automatically</value>
+  </data>
+  <data name="Detail_RunsSilently" xml:space="preserve">
+    <value>Your macro settings allow every macro to run without a prompt.</value>
+  </data>
+
+  <data name="Title_RequiresUserConsent" xml:space="preserve">
+    <value>Macros are blocked until you allow them</value>
+  </data>
+  <data name="Detail_RequiresUserConsent" xml:space="preserve">
+    <value>They will not run unless you choose Enable Content on the message bar.</value>
+  </data>
+
+  <data name="Title_RequiresPublisherTrust" xml:space="preserve">
+    <value>Signed, but the publisher is not trusted yet</value>
+  </data>
+  <data name="Detail_RequiresPublisherTrust" xml:space="preserve">
+    <value>Your settings permit digitally signed macros only. These will run once you trust the signing certificate.</value>
+  </data>
+
+  <data name="Title_BlockedUnsigned" xml:space="preserve">
+    <value>Macros are blocked</value>
+  </data>
+  <data name="Detail_BlockedUnsigned" xml:space="preserve">
+    <value>Your settings permit digitally signed macros only, and these are unsigned. You cannot run them from here.</value>
+  </data>
+
+  <data name="Title_BlockedByPolicy" xml:space="preserve">
+    <value>Macros are blocked</value>
+  </data>
+  <data name="Detail_BlockedByPolicy" xml:space="preserve">
+    <value>Your macro settings disable all macros without notification.</value>
+  </data>
+
+  <data name="Title_BlockedFromInternet" xml:space="preserve">
+    <value>Macros are blocked</value>
+  </data>
+  <data name="Detail_BlockedFromInternet" xml:space="preserve">
+    <value>This file came from the internet, and macros in such files are blocked. This cannot be overridden in Office.</value>
+  </data>
+
+  <data name="Signature_Signed" xml:space="preserve">
+    <value>The VBA project carries a digital signature.</value>
+  </data>
+  <data name="Signature_Unsigned" xml:space="preserve">
+    <value>The VBA project is not digitally signed.</value>
+  </data>
+  <data name="Signature_Caveat" xml:space="preserve">
+    <value>Office reports only that a signature is present. It does not tell add-ins whether the certificate is valid, unexpired, or from a publisher you trust.</value>
+  </data>
+
+  <data name="Excel4_Also" xml:space="preserve">
+    <value>This workbook also contains Excel 4.0 (XLM) macro sheets, which are not covered by a VBA signature.</value>
+  </data>
+  <data name="Excel4_Only" xml:space="preserve">
+    <value>This workbook contains Excel 4.0 (XLM) macro sheets. These are macros, even though the workbook has no VBA project.</value>
+  </data>
+
+  <data name="Setting_ManagedByPolicy" xml:space="preserve">
+    <value>Macro settings are managed by your organisation and cannot be changed in the Trust Center.</value>
+  </data>
+  <data name="Setting_NotConfigured" xml:space="preserve">
+    <value>No macro setting is configured, so Office is using its default of "disable all macros with notification".</value>
+  </data>
+  <data name="Setting_Effective" xml:space="preserve">
+    <value>Effective macro setting: {0}.</value>
+  </data>
+
+  <data name="Level_EnableAll" xml:space="preserve">
+    <value>enable all macros</value>
+  </data>
+  <data name="Level_DisableWithNotification" xml:space="preserve">
+    <value>disable all macros with notification</value>
+  </data>
+  <data name="Level_DisableExceptSigned" xml:space="preserve">
+    <value>disable all macros except digitally signed macros</value>
+  </data>
+  <data name="Level_DisableAll" xml:space="preserve">
+    <value>disable all macros without notification</value>
+  </data>
+
+  <data name="Ribbon_GroupLabel" xml:space="preserve">
+    <value>Macro Polo</value>
+  </data>
+  <data name="Error_NoDocument" xml:space="preserve">
+    <value>Open a document first, then check its macro status.</value>
+  </data>
+  <data name="Error_CheckFailed" xml:space="preserve">
+    <value>Macro Polo could not determine the macro status of this file.</value>
+  </data>
+</root>
