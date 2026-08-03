@@ -207,6 +207,14 @@ namespace Macro_Polo.Core
             DocumentMacroInfo info = Describe(document);
             info.HasMarkOfTheWeb = MarkOfTheWeb.IsPresent(info.FullPath);
 
+            // Only worth opening the file when Office says there is a signature to find.
+            if (info.IsVbaSigned)
+            {
+                info.Signature = VbaSignatureReader.Read(info.FullPath);
+                Log.Info("Signature: " + info.Signature.Trust
+                    + (info.Signature.SignerName == null ? string.Empty : " (" + info.Signature.SignerName + ")"));
+            }
+
             return MacroStatusEvaluator.Evaluate(info, reader.Read());
         }
 

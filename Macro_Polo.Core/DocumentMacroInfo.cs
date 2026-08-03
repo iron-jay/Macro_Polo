@@ -30,6 +30,29 @@ namespace Macro_Polo.Core
         /// <summary>True when the file carries a mark of the web identifying it as internet or restricted zone.</summary>
         public bool HasMarkOfTheWeb { get; set; }
 
+        /// <summary>
+        /// Who signed the VBA project and whether this machine trusts them, as far as it could be
+        /// established. Defaults to <see cref="VbaSignature.Unknown"/>, which keeps the reporting
+        /// conservative when the signature cannot be read.
+        /// </summary>
+        public VbaSignature Signature
+        {
+            get { return _signature ?? VbaSignature.Unknown; }
+            set { _signature = value; }
+        }
+
+        private VbaSignature _signature;
+
+        /// <summary>
+        /// True when Office will run these macros without asking, on the strength of the signature
+        /// alone. This is what makes a signed macro from a trusted publisher run silently even at
+        /// the "disable with notification" and "signed macros only" settings.
+        /// </summary>
+        public bool IsFromTrustedPublisher
+        {
+            get { return HasVbaProject && IsVbaSigned && Signature.Trust == PublisherTrust.Trusted; }
+        }
+
         /// <summary>True when any macro code is present, from either VBA or Excel 4.0 macro sheets.</summary>
         public bool HasMacros
         {

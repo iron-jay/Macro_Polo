@@ -25,6 +25,11 @@
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Configuration" />
+    <!-- SignedCms and the certificate stores, for resolving who signed a macro. -->
+    <Reference Include="System.Security" />
+    <!-- The OOXML formats are zip packages, and the VBA signature is a part inside them. -->
+    <Reference Include="System.IO.Compression" />
+    <Reference Include="System.IO.Compression.FileSystem" />
   </ItemGroup>
 
   <!-- Lets this project build on a machine or CI runner with no .NET Framework targeting pack. -->

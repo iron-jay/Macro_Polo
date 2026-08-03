@@ -46,12 +46,15 @@ $bannerType= $assembly.GetType('Macro_Polo.Core.MacroStatusBanner', $true)
 
 # One case per visual state, since the wording length differs sharply between them.
 $cases = @(
-    @{ Name = 'no-macros';        HasVba = $false; Signed = $false; Level = 'DisableWithNotification' }
-    @{ Name = 'runs-unsigned';    HasVba = $true;  Signed = $false; Level = 'EnableAll' }
-    @{ Name = 'runs-signed';      HasVba = $true;  Signed = $true;  Level = 'EnableAll' }
-    @{ Name = 'needs-consent';    HasVba = $true;  Signed = $false; Level = 'DisableWithNotification' }
-    @{ Name = 'needs-publisher';  HasVba = $true;  Signed = $true;  Level = 'DisableExceptSigned' }
-    @{ Name = 'blocked-unsigned'; HasVba = $true;  Signed = $false; Level = 'DisableExceptSigned' }
+    @{ Name = 'no-macros';        HasVba = $false; Signed = $false; Level = 'DisableWithNotification'; Trust = 'Unknown' }
+    @{ Name = 'runs-unsigned';    HasVba = $true;  Signed = $false; Level = 'EnableAll';               Trust = 'Unknown' }
+    @{ Name = 'runs-signed';      HasVba = $true;  Signed = $true;  Level = 'EnableAll';               Trust = 'Unknown' }
+    @{ Name = 'needs-consent';    HasVba = $true;  Signed = $false; Level = 'DisableWithNotification'; Trust = 'Unknown' }
+    @{ Name = 'needs-publisher';  HasVba = $true;  Signed = $true;  Level = 'DisableExceptSigned';     Trust = 'NotTrusted' }
+    @{ Name = 'blocked-unsigned'; HasVba = $true;  Signed = $false; Level = 'DisableExceptSigned';     Trust = 'Unknown' }
+    # The state that used to be reported as "blocked until you allow them": already run, because
+    # the signer is a publisher this machine trusts.
+    @{ Name = 'runs-trusted';     HasVba = $true;  Signed = $true;  Level = 'DisableWithNotification'; Trust = 'Trusted' }
 )
 
 # Narrow is a split-screen Word window; wide is a maximised one on a large display.
@@ -66,6 +69,12 @@ foreach ($case in $cases) {
     $doc.HasVbaProject = $case.HasVba
     $doc.IsVbaSigned = $case.Signed
     $doc.FullPath = 'C:\Users\someone\Documents\quarterly report.docm'
+
+    $trustType = $assembly.GetType('Macro_Polo.Core.PublisherTrust', $true)
+    $sigType = $assembly.GetType('Macro_Polo.Core.VbaSignature', $true)
+    $reason = if ($case.Trust -eq 'NotTrusted') { 'the certificate is not in Trusted Publishers' } else { $null }
+    $doc.Signature = [Activator]::CreateInstance($sigType, @(
+        [Enum]::Parse($trustType, $case.Trust), 'Contoso Ltd', 'DC45AA80E3F3709B0B1C54AC0DF3D7E2403C0348', $reason))
 
     $settings = [Activator]::CreateInstance($setType)
     $settings.WarningLevel = [Enum]::Parse($levelType, $case.Level)

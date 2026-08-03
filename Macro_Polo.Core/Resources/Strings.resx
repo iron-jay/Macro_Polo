@@ -83,6 +83,9 @@
   <data name="Detail_RunsSilently" xml:space="preserve">
     <value>Your macro settings allow every macro to run without a prompt.</value>
   </data>
+  <data name="Detail_RunsSilentlyTrustedPublisher" xml:space="preserve">
+    <value>They have already run: a macro signed by a trusted publisher is not held behind the message bar.</value>
+  </data>
 
   <data name="Title_RequiresUserConsent" xml:space="preserve">
     <value>Macros are blocked until you allow them</value>
@@ -126,7 +129,19 @@
     <value>The VBA project is not digitally signed.</value>
   </data>
   <data name="Signature_Caveat" xml:space="preserve">
-    <value>Office reports only that a signature is present. It does not tell add-ins whether the certificate is valid, unexpired, or from a publisher you trust.</value>
+    <value>The signature could not be inspected, so this only reflects that Office reports one as present — not whether the certificate is valid, unexpired, or from a publisher you trust.</value>
+  </data>
+  <data name="Signature_SignedByTrusted" xml:space="preserve">
+    <value>Signed by {0}, a publisher trusted on this machine.</value>
+  </data>
+  <data name="Signature_SignedByUntrusted" xml:space="preserve">
+    <value>Signed by {0}.</value>
+  </data>
+  <data name="Signature_UntrustedBecause" xml:space="preserve">
+    <value>It will not run unprompted because {0}.</value>
+  </data>
+  <data name="Signature_Thumbprint" xml:space="preserve">
+    <value>Certificate thumbprint: {0}</value>
   </data>
 
   <data name="Excel4_Also" xml:space="preserve">

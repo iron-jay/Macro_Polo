@@ -45,7 +45,12 @@ namespace Macro_Polo.Core
                     break;
 
                 case VbaWarningLevel.DisableWithNotification:
-                    state = MacroState.RequiresUserConsent;
+                    // A trusted publisher is exactly what this setting defers to: the trust bar
+                    // never appears and the macros have already run by the time anyone looks.
+                    // Reporting these as "blocked until you allow them" understated what happened.
+                    state = document.IsFromTrustedPublisher
+                        ? MacroState.RunsSilently
+                        : MacroState.RequiresUserConsent;
                     break;
 
                 case VbaWarningLevel.DisableExceptSigned:
@@ -53,7 +58,9 @@ namespace Macro_Polo.Core
                     // they are blocked outright even in a workbook whose VBA project is signed.
                     if (document.IsVbaSigned && document.HasVbaProject)
                     {
-                        state = MacroState.RequiresPublisherTrust;
+                        state = document.Signature.Trust == PublisherTrust.Trusted
+                            ? MacroState.RunsSilently
+                            : MacroState.RequiresPublisherTrust;
                     }
                     else
                     {

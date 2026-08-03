@@ -5,10 +5,10 @@ namespace Macro_Polo.Core
     /// <summary>When the banner should appear without being asked for.</summary>
     public enum AutoShowMode
     {
-        /// <summary>Only ever show the banner when the ribbon button is pressed.</summary>
+        /// <summary>Only show the banner when the ribbon button is pressed. The default.</summary>
         Never = 0,
 
-        /// <summary>Show the banner automatically when the document contains macros. The default.</summary>
+        /// <summary>Show the banner automatically when the document contains macros.</summary>
         WhenMacrosPresent = 1,
 
         /// <summary>Show the banner for every document, including those with no macros.</summary>
@@ -31,7 +31,7 @@ namespace Macro_Polo.Core
 
         public AddInOptions()
         {
-            AutoShow = AutoShowMode.WhenMacrosPresent;
+            AutoShow = AutoShowMode.Never;
         }
 
         public AutoShowMode AutoShow { get; set; }

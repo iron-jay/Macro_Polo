@@ -187,6 +187,97 @@ namespace Macro_Polo.Core.Tests
             Assert.Equal(MacroState.BlockedUnsigned, status.State);
         }
 
+        /// <summary>
+        /// The case that was reported wrongly in the field: the macros had already run, and the
+        /// banner said they were waiting behind the message bar. A trusted publisher is precisely
+        /// what "disable with notification" defers to.
+        /// </summary>
+        [Fact]
+        public void A_trusted_publisher_runs_without_a_prompt_at_the_default_setting()
+        {
+            MacroStatus status = Evaluate(
+                Document(signed: true, trust: PublisherTrust.Trusted),
+                Settings(VbaWarningLevel.DisableWithNotification));
+
+            Assert.Equal(MacroState.RunsSilently, status.State);
+            Assert.True(status.RunsWithoutPrompting);
+        }
+
+        [Fact]
+        public void A_trusted_publisher_runs_without_a_prompt_when_only_signed_macros_are_permitted()
+        {
+            MacroStatus status = Evaluate(
+                Document(signed: true, trust: PublisherTrust.Trusted),
+                Settings(VbaWarningLevel.DisableExceptSigned));
+
+            Assert.Equal(MacroState.RunsSilently, status.State);
+        }
+
+        [Theory]
+        [InlineData(PublisherTrust.NotTrusted)]
+        [InlineData(PublisherTrust.Unknown)]
+        public void Without_publisher_trust_the_user_is_still_asked(PublisherTrust trust)
+        {
+            MacroStatus status = Evaluate(
+                Document(signed: true, trust: trust),
+                Settings(VbaWarningLevel.DisableWithNotification));
+
+            Assert.Equal(MacroState.RequiresUserConsent, status.State);
+        }
+
+        /// <summary>
+        /// An unreadable signature must never be treated as a trusted one. Unknown keeps the
+        /// wording exactly as it was before the signer could be resolved at all.
+        /// </summary>
+        [Theory]
+        [InlineData(PublisherTrust.NotTrusted)]
+        [InlineData(PublisherTrust.Unknown)]
+        public void Without_publisher_trust_signed_macros_still_await_trust_at_level_three(PublisherTrust trust)
+        {
+            MacroStatus status = Evaluate(
+                Document(signed: true, trust: trust),
+                Settings(VbaWarningLevel.DisableExceptSigned));
+
+            Assert.Equal(MacroState.RequiresPublisherTrust, status.State);
+        }
+
+        /// <summary>"Disable all without notification" is absolute; trust does not reopen it.</summary>
+        [Fact]
+        public void A_trusted_publisher_does_not_override_disable_all()
+        {
+            MacroStatus status = Evaluate(
+                Document(signed: true, trust: PublisherTrust.Trusted),
+                Settings(VbaWarningLevel.DisableAll));
+
+            Assert.Equal(MacroState.BlockedByPolicy, status.State);
+        }
+
+        /// <summary>Trust attaches to a signature, so it cannot rescue an unsigned project.</summary>
+        [Fact]
+        public void Publisher_trust_is_ignored_when_the_project_is_not_signed()
+        {
+            var document = Document(signed: false, trust: PublisherTrust.Trusted);
+
+            Assert.False(document.IsFromTrustedPublisher);
+            Assert.Equal(
+                MacroState.RequiresUserConsent,
+                Evaluate(document, Settings(VbaWarningLevel.DisableWithNotification)).State);
+        }
+
+        /// <summary>The internet block is enforced ahead of any signature.</summary>
+        [Fact]
+        public void A_trusted_publisher_does_not_override_the_internet_block()
+        {
+            MacroSecuritySettings settings = Settings(VbaWarningLevel.DisableWithNotification);
+            settings.BlockMacrosFromInternet = true;
+
+            MacroStatus status = Evaluate(
+                Document(signed: true, trust: PublisherTrust.Trusted, motw: true),
+                settings);
+
+            Assert.Equal(MacroState.BlockedFromInternet, status.State);
+        }
+
         private static MacroStatus Evaluate(DocumentMacroInfo document, MacroSecuritySettings settings)
         {
             return MacroStatusEvaluator.Evaluate(document, settings);
@@ -196,14 +287,16 @@ namespace Macro_Polo.Core.Tests
             bool hasVba = true,
             bool signed = false,
             string path = @"C:\Users\someone\Documents\report.docm",
-            bool motw = false)
+            bool motw = false,
+            PublisherTrust trust = PublisherTrust.Unknown)
         {
             return new DocumentMacroInfo
             {
                 HasVbaProject = hasVba,
                 IsVbaSigned = signed,
                 FullPath = path,
-                HasMarkOfTheWeb = motw
+                HasMarkOfTheWeb = motw,
+                Signature = new VbaSignature(trust, "Test Publisher", "0011223344556677889900AABBCCDDEEFF001122", null)
             };
         }
 

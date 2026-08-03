@@ -16,9 +16,8 @@ document can contain a perfectly ordinary macro that Office will never execute, 
 an unsigned macro that runs the moment you open it because the file happens to sit in a Trusted
 Location.
 
-The banner appears on its own when you open a document containing macros — you do not have to
-remember to ask. The **Macro check** toggle on the Home tab shows or hides it on demand, and works
-for documents with no macros too.
+The **Macro check** toggle on the Home tab shows and hides the banner. Set `AutoShow` (below) to
+have it appear on its own whenever a document containing macros is opened.
 
 ## What it reports
 
@@ -33,6 +32,12 @@ Macros that will run the moment the file opens, unsigned — the state this add-
 The same, but signed:
 
 ![Signed macros run automatically](images/banner-runs-signed.png)
+
+Macros that have **already run** because they are signed by a publisher this machine trusts — this
+happens even at the "disable with notification" and "signed macros only" settings, and is the case
+most easily mistaken for a blocked one:
+
+![Signed by a trusted publisher](images/banner-runs-trusted.png)
 
 Macros held behind the trust bar, which is Office's default behaviour:
 
@@ -67,13 +72,23 @@ out of date.
   signed.
 - The **Office version** in use, rather than assuming Office 2016.
 
+- **Who signed the macros, and whether you trust them.** Office tells add-ins only that a signature
+  exists, never whose it is — so the certificate is read out of the document directly and checked
+  against Trusted Publishers, chain and all. This matters more than it sounds: a macro signed by a
+  publisher you already trust runs *with no prompt at all*, even at "disable with notification" and
+  "signed macros only". Without this the banner reported those as waiting behind the message bar
+  when they had in fact already executed.
+
 ### What it cannot tell you
 
-Office exposes a document's VBA signature to add-ins as a single boolean. It says a signature is
-present. It does not say whether the certificate is valid, unexpired, or issued to a publisher you
-trust. So "signed" here means *signed*, not *trustworthy*, and the add-in says so rather than
-implying otherwise. Whether a signed macro will actually run silently depends on your Trusted
-Publishers list, which is why that case is reported as "the publisher is not trusted yet".
+- **Legacy `.doc` and `.xls`.** Those keep the signature inside the compound file rather than
+  alongside it, which is not read yet. Their signer is reported as undetermined, and the banner
+  falls back to saying only that a signature is present.
+- **Whether the signature is valid for the content.** The signer is read and its trust established;
+  the add-in does not re-verify that the signature still matches the macro code. Office does that
+  itself and will refuse a broken signature, so the practical gap is small — but it is a gap.
+- **Documents with no local file.** A document opened straight from a URL, or never saved, has
+  nothing to read, so trusted locations, mark of the web and the signer all come back undetermined.
 
 ## Installing
 
@@ -124,7 +139,7 @@ Optional, under `HKLM\Software\Policies\Macro_Polo`, `HKLM\Software\Macro_Polo`,
 
 | Value | Type | Meaning |
 | --- | --- | --- |
-| `AutoShow` | DWORD | `0` never show the banner automatically, `1` show it when the document has macros (default), `2` show it for every document. |
+| `AutoShow` | DWORD | `0` only show the banner when the ribbon button is pressed (default), `1` show it automatically when the document has macros, `2` show it for every document. |
 | `Logging` | DWORD | `1` writes a log to `%LOCALAPPDATA%\Macro Polo\macro-polo.log`. Off by default. |
 
 ## Building
