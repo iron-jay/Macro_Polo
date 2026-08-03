@@ -11,8 +11,11 @@
     <Configuration Condition="'$(Configuration)' == ''">Release</Configuration>
     <OutputName>Macro_Polo</OutputName>
     <OutputType>Package</OutputType>
-    <!-- Bumped from 1.2.x so that installing this replaces the previous, VSTO-based, package. -->
-    <ProductVersion>1.4.0</ProductVersion>
+    <!--
+      Must increase on every release: the UpgradeCode is unchanged from the original VSTO-based
+      package, so a major upgrade is what removes an older install rather than sitting beside it.
+    -->
+    <ProductVersion>1.4.1</ProductVersion>
   </PropertyGroup>
 
   <PropertyGroup>

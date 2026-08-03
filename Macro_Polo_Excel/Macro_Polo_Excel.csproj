@@ -54,29 +54,26 @@
   </ItemGroup>
 
   <!--
-    Referenced, deliberately NOT embedded.
+    Embedded, not referenced. Embedding (NoPIA) copies just the types actually used into this
+    assembly, so no primary interop assembly has to be present in the GAC on the target machine -
+    which matters for a plain file-copy deployment aimed at other people's machines.
 
-    Embedding (NoPIA) is the tidier choice for deployment - it copies just the types used into this
-    assembly, so no primary interop assembly need be present on the target machine. It was the
-    original setting here. But a crash dump from Word showed the real PIAs being loaded anyway to
-    establish type equivalence, and the faulting frame was a JIT type helper underneath a COM to
-    managed transition, which is what a type-equivalence failure looks like. Embedded interop types
-    that a COM callable wrapper has to expose back to the host are the murkiest corner of NoPIA, so
-    this takes the plain reference instead and lets the CLR use one set of types throughout.
-
-    The cost is a runtime dependency on the Office PIAs being in the GAC.
+    This was briefly switched off while chasing a crash that turned out to be an unrelated
+    marshalling defect in the IDTExtensibility2 declaration. Embedding was not the cause, and the
+    runtime dependency it avoids is worth having back. build\Test-ComSurface.ps1 now calls
+    OnConnection through the COM vtable, which is the transition that failed then.
   -->
   <ItemGroup>
     <Reference Include="Office, Version=15.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c">
-      <EmbedInteropTypes>false</EmbedInteropTypes>
+      <EmbedInteropTypes>true</EmbedInteropTypes>
       <Private>False</Private>
     </Reference>
     <Reference Include="Microsoft.Office.Interop.Excel, Version=15.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c">
-      <EmbedInteropTypes>false</EmbedInteropTypes>
+      <EmbedInteropTypes>true</EmbedInteropTypes>
       <Private>False</Private>
     </Reference>
     <Reference Include="stdole, Version=7.0.3300.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-      <EmbedInteropTypes>false</EmbedInteropTypes>
+      <EmbedInteropTypes>true</EmbedInteropTypes>
       <Private>False</Private>
     </Reference>
   </ItemGroup>

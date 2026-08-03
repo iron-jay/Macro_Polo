@@ -131,6 +131,86 @@ foreach ($target in $targets) {
     }
 }
 
+# Calling OnConnection the way Office does: through the vtable, with a real SAFEARRAY for the
+# 'custom' argument. Checking that the interfaces merely *exist* is not enough - the defect that
+# crashed both hosts was a missing SAFEARRAY marshalling descriptor, which left every interface
+# present and correct and still killed the process the moment Office actually called in. Nothing
+# short of making the call catches that.
+Add-Type -TypeDefinition @'
+using System;
+using System.Runtime.InteropServices;
+
+public static class ComInvoke
+{
+    [DllImport("oleaut32.dll")]
+    public static extern IntPtr SafeArrayCreateVector(ushort vt, int lowerBound, uint elements);
+
+    [DllImport("oleaut32.dll")]
+    public static extern int SafeArrayDestroy(IntPtr psa);
+
+    [UnmanagedFunctionPointer(CallingConvention.StdCall)]
+    private delegate int OnConnectionFn(IntPtr self, IntPtr application, int connectMode, IntPtr addInInst, ref IntPtr custom);
+
+    /// <summary>Slots 0-2 are IUnknown and 3-6 IDispatch, so a dual interface's first method is 7.</summary>
+    private const int OnConnectionSlot = 7;
+
+    public static int OnConnection(IntPtr interfacePointer)
+    {
+        IntPtr vtable = Marshal.ReadIntPtr(interfacePointer);
+        IntPtr slot = Marshal.ReadIntPtr(vtable, OnConnectionSlot * IntPtr.Size);
+        var call = (OnConnectionFn)Marshal.GetDelegateForFunctionPointer(slot, typeof(OnConnectionFn));
+
+        IntPtr safeArray = SafeArrayCreateVector(12 /* VT_VARIANT */, 0, 0);
+        try
+        {
+            // ext_cm_AfterStartup, with no host and no add-in instance: the call has to survive
+            // marshalling, which is the whole point. What it then does with nulls is its business.
+            return call(interfacePointer, IntPtr.Zero, 0, IntPtr.Zero, ref safeArray);
+        }
+        finally
+        {
+            SafeArrayDestroy(safeArray);
+        }
+    }
+}
+'@
+
+foreach ($target in $targets) {
+    $path = Join-Path $repoRoot $target.Assembly
+    $assembly = [System.Reflection.Assembly]::LoadFrom($path)
+    $type = $assembly.GetType($target.Class, $true)
+    $instance = [Activator]::CreateInstance($type)
+
+    Write-Host "`n=== $($target.Class): calling OnConnection through the vtable ===" -ForegroundColor Cyan
+
+    $interface = $null
+    foreach ($assy in [AppDomain]::CurrentDomain.GetAssemblies()) {
+        $candidate = $assy.GetType('Macro_Polo.Core.IDTExtensibility2', $false)
+        if ($candidate) { $interface = $candidate; break }
+    }
+
+    try {
+        $pointer = $marshal::GetComInterfaceForObject($instance, $interface)
+        try {
+            $hr = [ComInvoke]::OnConnection($pointer)
+            if ($hr -eq 0) {
+                Write-Host '  ok   OnConnection returned S_OK' -ForegroundColor Green
+            }
+            else {
+                $failures += "$($target.Class): OnConnection returned 0x{0:X8}" -f $hr
+                Write-Host ("  FAIL OnConnection returned 0x{0:X8}" -f $hr) -ForegroundColor Red
+            }
+        }
+        finally {
+            $marshal::Release($pointer) | Out-Null
+        }
+    }
+    catch {
+        $failures += "$($target.Class): OnConnection threw - $($_.Exception.Message)"
+        Write-Host "  FAIL OnConnection threw - $($_.Exception.Message)" -ForegroundColor Red
+    }
+}
+
 # The task pane control. ICTPFactory.CreateCTP instantiates it by ProgID and sites it as an ActiveX
 # control, so the CCW has to answer for IOleObject. This is the last COM contract in the add-in that
 # can be checked without launching Office.

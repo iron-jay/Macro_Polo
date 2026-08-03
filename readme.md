@@ -153,7 +153,7 @@ unit tests, and show up only as Office dying on launch:
 
 | Script | What it catches |
 | --- | --- |
-| `build\Test-ComSurface.ps1` | Builds the COM callable wrapper in-process and asserts that everything Office queries for is there: IDispatch for the ribbon callbacks, the three add-in interfaces, and the ActiveX interfaces on the banner control. Runs as a gate before packaging. |
+| `build\Test-ComSurface.ps1` | Builds the COM callable wrapper in-process and asserts that everything Office queries for is there — IDispatch for the ribbon callbacks, the three add-in interfaces, the ActiveX interfaces on the banner — and then *calls* `OnConnection` through the vtable with a real SAFEARRAY, because a wrapper whose interfaces are all present can still kill the host the moment it is used. Runs as a gate before packaging. |
 | `build\Render-Banner.ps1` | Draws the banner offscreen at every state and a range of pane widths, and writes PNGs — including the ones in this readme. Lets layout be checked without a rebuild-reinstall-restart cycle. |
 
 The unit tests also compare the hand-written `IDTExtensibility2` declaration against the real
