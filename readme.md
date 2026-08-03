@@ -19,6 +19,10 @@ Location.
 The **Macro check** toggle on the Home tab shows and hides the banner. Set `AutoShow` (below) to
 have it appear on its own whenever a document containing macros is opened.
 
+| Word | Excel |
+| :---: | :---: |
+| ![Macro check on the Word ribbon](images/ribbon-word.png) | ![Macro check on the Excel ribbon](images/ribbon-excel.png) |
+
 ## What it reports
 
 No macros in the file:
