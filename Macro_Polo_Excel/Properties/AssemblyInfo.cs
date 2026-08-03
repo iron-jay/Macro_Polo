@@ -9,9 +9,9 @@ using System.Security;
 [assembly: AssemblyTitle("Macro_Polo_Excel")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("Macro_Polo_Excel")]
-[assembly: AssemblyCopyright("Copyright ©  2025")]
+[assembly: AssemblyCompany("iron-jay")]
+[assembly: AssemblyProduct("Macro Polo")]
+[assembly: AssemblyCopyright("Copyright © iron-jay")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 

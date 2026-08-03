@@ -12,7 +12,7 @@
 <Wix xmlns="http://wixtoolset.org/schemas/v4/wxs">
 
   <Package Name="Macro Polo"
-           Manufacturer="Macro Polo"
+           Manufacturer="iron-jay"
            Version="$(ProductVersion)"
            UpgradeCode="8F3C2A15-6D74-4E9B-B052-9C7A1E4D6F30"
            Scope="perMachine"

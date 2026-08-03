@@ -15,7 +15,7 @@
       Must increase on every release: the UpgradeCode is unchanged from the original VSTO-based
       package, so a major upgrade is what removes an older install rather than sitting beside it.
     -->
-    <ProductVersion>1.4.1</ProductVersion>
+    <ProductVersion>1.5.1</ProductVersion>
   </PropertyGroup>
 
   <PropertyGroup>
