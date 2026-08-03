@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- English (United States) strings for MacroPolo.admx. -->
+<policyDefinitionResources xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+                           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                           revision="1.0"
+                           schemaVersion="1.0"
+                           xmlns="http://schemas.microsoft.com/GroupPolicy/2006/07/PolicyDefinitions">
+
+  <displayName>Macro Polo</displayName>
+  <description>Group Policy settings for the Macro Polo add-in for Word and Excel.</description>
+
+  <resources>
+    <stringTable>
+
+      <string id="IronJay">iron-jay</string>
+      <string id="MacroPolo">Macro Polo</string>
+
+      <string id="AutoShow">When to show the macro status banner</string>
+      <string id="AutoShow_Explain">Controls whether the macro status banner appears on its own when a document is opened.
+
+If you enable this setting, choose one of:
+
+  - Only when the ribbon button is pressed. The banner never appears by itself. This is the default.
+
+  - When the document contains macros. The banner appears automatically for any document with macro code, and stays out of the way otherwise.
+
+  - For every document. The banner appears on every document, including those with no macros at all.
+
+If you disable or do not configure this setting, users may choose for themselves, and the banner only appears when the Macro check button on the Home tab is pressed.
+
+Note that this only controls when the banner appears unprompted. The ribbon button always works, whatever this is set to.</string>
+      <string id="AutoShow_Never">Only when the ribbon button is pressed (default)</string>
+      <string id="AutoShow_WhenMacrosPresent">When the document contains macros</string>
+      <string id="AutoShow_Always">For every document</string>
+
+      <string id="Logging">Enable diagnostic logging</string>
+      <string id="Logging_Explain">Writes a diagnostic log to %LOCALAPPDATA%\Macro Polo\macro-polo.log.
+
+If you enable this setting, the add-in records what it does for each document it inspects, which is useful when a machine is reporting something unexpected.
+
+If you disable or do not configure this setting, nothing is written.
+
+The log names every document checked, so it is worth turning off again once the question has been answered.</string>
+
+    </stringTable>
+
+    <presentationTable>
+      <presentation id="AutoShow">
+        <dropdownList refId="AutoShow" noSort="true" defaultItem="0">Show the banner:</dropdownList>
+      </presentation>
+    </presentationTable>
+  </resources>
+</policyDefinitionResources>

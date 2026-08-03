@@ -15,7 +15,7 @@
       Must increase on every release: the UpgradeCode is unchanged from the original VSTO-based
       package, so a major upgrade is what removes an older install rather than sitting beside it.
     -->
-    <ProductVersion>1.5.1</ProductVersion>
+    <ProductVersion>1.6.0</ProductVersion>
   </PropertyGroup>
 
   <PropertyGroup>
@@ -30,6 +30,7 @@
       ExcelAddInClsid=6A4D3C21-8E97-45B2-A0F6-3D7B1E9C5842;
       BannerClsid=D2E7B4A6-3C81-4F52-9E07-5B6A1C8D4F20;
       IconFile=$(MSBuildThisFileDirectory)..\images\Macro_Polo.ico;
+      PoliciesDir=$(MSBuildThisFileDirectory)policies\;
       WordBin=$(MSBuildThisFileDirectory)..\Macro_Polo_Word\bin\$(Configuration)\;
       ExcelBin=$(MSBuildThisFileDirectory)..\Macro_Polo_Excel\bin\$(Configuration)\
     </DefineConstants>

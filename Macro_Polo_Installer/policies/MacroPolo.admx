@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Group Policy templates for Macro Polo.
+
+  The key below must stay in step with OptionScopes.Policy in Macro_Polo.Core. If one moves without
+  the other, Group Policy writes settings the add-in never reads, and nothing reports an error -
+  the policy simply appears to have no effect.
+
+  To use these, copy MacroPolo.admx into %SystemRoot%\PolicyDefinitions (or the domain central
+  store, \\<domain>\SYSVOL\<domain>\Policies\PolicyDefinitions) and the en-US folder alongside it.
+-->
+<policyDefinitions xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   revision="1.0"
+                   schemaVersion="1.0"
+                   xmlns="http://schemas.microsoft.com/GroupPolicy/2006/07/PolicyDefinitions">
+
+  <policyNamespaces>
+    <target prefix="macropolo" namespace="ironjay.Policies.MacroPolo" />
+    <using prefix="windows" namespace="Microsoft.Policies.Windows" />
+  </policyNamespaces>
+
+  <resources minRequiredRevision="1.0" />
+
+  <categories>
+    <category name="IronJay" displayName="$(string.IronJay)" />
+    <category name="MacroPolo" displayName="$(string.MacroPolo)">
+      <parentCategory ref="IronJay" />
+    </category>
+  </categories>
+
+  <policies>
+
+    <!--
+      When the banner appears. Machine class only: this is a deployment decision, and a user who
+      disagrees can still show the banner at any time with the ribbon button.
+    -->
+    <policy name="AutoShow"
+            class="Machine"
+            displayName="$(string.AutoShow)"
+            explainText="$(string.AutoShow_Explain)"
+            presentation="$(presentation.AutoShow)"
+            key="Software\Policies\iron-jay\Macro Polo">
+      <parentCategory ref="MacroPolo" />
+      <supportedOn ref="windows:SUPPORTED_Windows7" />
+      <elements>
+        <enum id="AutoShow" valueName="AutoShow" required="true">
+          <item displayName="$(string.AutoShow_Never)">
+            <value><decimal value="0" /></value>
+          </item>
+          <item displayName="$(string.AutoShow_WhenMacrosPresent)">
+            <value><decimal value="1" /></value>
+          </item>
+          <item displayName="$(string.AutoShow_Always)">
+            <value><decimal value="2" /></value>
+          </item>
+        </enum>
+      </elements>
+    </policy>
+
+    <!--
+      Diagnostic logging. Off by default; worth turning on for a machine that is misbehaving, and
+      off again afterwards, since the log records every document checked.
+    -->
+    <policy name="Logging"
+            class="Machine"
+            displayName="$(string.Logging)"
+            explainText="$(string.Logging_Explain)"
+            key="Software\Policies\iron-jay\Macro Polo"
+            valueName="Logging">
+      <parentCategory ref="MacroPolo" />
+      <supportedOn ref="windows:SUPPORTED_Windows7" />
+      <enabledValue><decimal value="1" /></enabledValue>
+      <disabledValue><decimal value="0" /></disabledValue>
+    </policy>
+
+  </policies>
+</policyDefinitions>

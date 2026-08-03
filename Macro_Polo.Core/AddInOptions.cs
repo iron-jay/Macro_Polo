@@ -19,16 +19,9 @@ namespace Macro_Polo.Core
     /// Add-in behaviour, configurable so that an administrator can set it for a fleet rather than
     /// relying on every user to press a button.
     /// </summary>
-    /// <remarks>
-    /// Read from, in order of precedence: <c>HKLM\Software\Policies\Macro_Polo</c>,
-    /// <c>HKLM\Software\Macro_Polo</c>, <c>HKCU\Software\Macro_Polo</c>.
-    /// </remarks>
+    /// <remarks>See <see cref="OptionScopes"/> for where these are read from, and in what order.</remarks>
     public sealed class AddInOptions
     {
-        private const string PolicyPath = @"Software\Policies\Macro_Polo";
-        private const string MachinePath = @"Software\Macro_Polo";
-        private const string UserPath = @"Software\Macro_Polo";
-
         public AddInOptions()
         {
             AutoShow = AutoShowMode.Never;
@@ -42,9 +35,7 @@ namespace Macro_Polo.Core
 
             var options = new AddInOptions();
 
-            object raw = registry.GetValue(RegistryRoot.LocalMachine, PolicyPath, "AutoShow")
-                ?? registry.GetValue(RegistryRoot.LocalMachine, MachinePath, "AutoShow")
-                ?? registry.GetValue(RegistryRoot.CurrentUser, UserPath, "AutoShow");
+            object raw = OptionScopes.Resolve(registry, "AutoShow");
 
             if (raw != null)
             {

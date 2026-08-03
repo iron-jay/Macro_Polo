@@ -111,7 +111,7 @@ you match the download to your Office build. The add-in assemblies are AnyCPU an
 them. The package itself is x64 and needs 64-bit Windows — which is a different question from
 Office's bitness.
 
-It installs per machine, into `%ProgramFiles%\Macro Polo`, and registers each add-in under
+It installs per machine, into `%ProgramFiles%\iron-jay\Macro Polo`, and registers each add-in under
 `HKLM\SOFTWARE\Microsoft\Office\<app>\Addins` alongside the COM class registration. It is a file
 copy plus registry entries — nothing else.
 
@@ -141,13 +141,33 @@ add-in works.
 
 ## Configuration
 
-Optional, under `HKLM\Software\Policies\Macro_Polo`, `HKLM\Software\Macro_Polo`, or
-`HKCU\Software\Macro_Polo` (in that order of precedence):
+Optional. Settings are read in this order, the first one found winning:
+
+1. `HKLM\Software\Policies\iron-jay\Macro Polo` — Group Policy
+2. `HKLM\Software\iron-jay\Macro Polo` — machine-wide default
+3. `HKCU\Software\iron-jay\Macro Polo` — the user's own preference
 
 | Value | Type | Meaning |
 | --- | --- | --- |
 | `AutoShow` | DWORD | `0` only show the banner when the ribbon button is pressed (default), `1` show it automatically when the document has macros, `2` show it for every document. |
-| `Logging` | DWORD | `1` writes a log to `%LOCALAPPDATA%\Macro Polo\macro-polo.log`. Off by default. |
+| `Logging` | DWORD | `1` writes a log to `%LOCALAPPDATA%\Macro Polo\macro-polo.log`. Off by default, and worth turning off again afterwards since it names every document checked. |
+
+### Group Policy
+
+ADMX and ADML templates are installed to `%ProgramFiles%\iron-jay\Macro Polo\policies`. Group Policy
+does not read them from there — copy them where the tooling looks:
+
+```bash
+copy "%ProgramFiles%\iron-jay\Macro Polo\policies\MacroPolo.admx" "%SystemRoot%\PolicyDefinitions\"
+```
+
+```bash
+copy "%ProgramFiles%\iron-jay\Macro Polo\policies\en-US\MacroPolo.adml" "%SystemRoot%\PolicyDefinitions\en-US\"
+```
+
+For a domain, put them in the central store instead
+(`\\<domain>\SYSVOL\<domain>\Policies\PolicyDefinitions`). The settings then appear under
+**Computer Configuration → Administrative Templates → iron-jay → Macro Polo**.
 
 ## Building
 

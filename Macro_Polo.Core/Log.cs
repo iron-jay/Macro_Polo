@@ -92,19 +92,36 @@ namespace Macro_Polo.Core
             return _path;
         }
 
+        /// <summary>
+        /// Resolves the Logging setting across the same scopes as every other option, so it can be
+        /// turned on by Group Policy for a whole fleet when support needs it.
+        /// </summary>
+        /// <remarks>
+        /// The registry is read directly here rather than through WindowsRegistryValueSource,
+        /// which logs its own failures - a logger that consulted a source that logs would recurse
+        /// the moment a read failed.
+        /// </remarks>
         private static bool ReadEnabledFlag()
+        {
+            return ReadFlag(Registry.LocalMachine, OptionScopes.Policy)
+                ?? ReadFlag(Registry.LocalMachine, OptionScopes.Machine)
+                ?? ReadFlag(Registry.CurrentUser, OptionScopes.User)
+                ?? false;
+        }
+
+        private static bool? ReadFlag(RegistryKey root, string subKeyPath)
         {
             try
             {
-                using (RegistryKey key = Registry.CurrentUser.OpenSubKey(@"Software\Macro_Polo"))
+                using (RegistryKey key = root.OpenSubKey(subKeyPath))
                 {
                     object value = key == null ? null : key.GetValue("Logging");
-                    return value != null && Convert.ToInt32(value, CultureInfo.InvariantCulture) != 0;
+                    return value == null ? (bool?)null : Convert.ToInt32(value, CultureInfo.InvariantCulture) != 0;
                 }
             }
             catch
             {
-                return false;
+                return null;
             }
         }
     }

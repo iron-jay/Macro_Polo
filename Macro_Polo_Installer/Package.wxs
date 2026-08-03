@@ -80,6 +80,10 @@
       <ComponentGroupRef Id="ConfigurationComponents" />
     </Feature>
 
+    <Feature Id="PolicyTemplates" Title="Group Policy templates" Description="ADMX and ADML templates for managing Macro Polo through Group Policy." Level="1">
+      <ComponentGroupRef Id="PolicyTemplateComponents" />
+    </Feature>
+
   </Package>
 
   <Fragment>
@@ -89,7 +93,19 @@
       on disk for the CodeBase in that registration to point at.
     -->
     <StandardDirectory Id="ProgramFiles6432Folder">
-      <Directory Id="INSTALLFOLDER" Name="Macro Polo" />
+      <Directory Id="VENDORFOLDER" Name="iron-jay">
+        <Directory Id="INSTALLFOLDER" Name="Macro Polo">
+          <!--
+            The ADMX templates are shipped here for reference. Group Policy does not read them
+            from an install directory: they have to be copied to %SystemRoot%\PolicyDefinitions or
+            the domain central store, which is an administrator's decision rather than an
+            installer's.
+          -->
+          <Directory Id="POLICIESFOLDER" Name="policies">
+            <Directory Id="POLICIESENUSFOLDER" Name="en-US" />
+          </Directory>
+        </Directory>
+      </Directory>
     </StandardDirectory>
   </Fragment>
 
@@ -118,6 +134,17 @@
   </Fragment>
 
   <Fragment>
+    <ComponentGroup Id="PolicyTemplateComponents">
+      <Component Id="PolicyAdmx" Directory="POLICIESFOLDER">
+        <File Source="$(PoliciesDir)MacroPolo.admx" KeyPath="yes" />
+      </Component>
+      <Component Id="PolicyAdml" Directory="POLICIESENUSFOLDER">
+        <File Source="$(PoliciesDir)en-US\MacroPolo.adml" KeyPath="yes" />
+      </Component>
+    </ComponentGroup>
+  </Fragment>
+
+  <Fragment>
     <ComponentGroup Id="ConfigurationComponents" Directory="INSTALLFOLDER">
       <!--
         Optional, and deliberately not written unless asked for:
@@ -127,7 +154,7 @@
         quietly stop users changing the setting for themselves.
       -->
       <Component Id="AutoShowSetting" Condition="AUTOSHOW">
-        <RegistryValue Root="HKLM" Key="SOFTWARE\Macro_Polo" Name="AutoShow"
+        <RegistryValue Root="HKLM" Key="SOFTWARE\iron-jay\Macro Polo" Name="AutoShow"
                        Type="integer" Value="[AUTOSHOW]" KeyPath="yes" />
       </Component>
     </ComponentGroup>
