@@ -25,5 +25,12 @@ namespace Macro_Polo.Core
         /// empty sequence when the key is absent.
         /// </summary>
         IEnumerable<string> GetSubKeyNames(RegistryRoot root, string subKeyPath);
+
+        /// <summary>
+        /// Returns the value names under <paramref name="subKeyPath"/>, or an empty sequence when
+        /// the key is absent. Needed because Office records trusted documents as one value per
+        /// document, keyed by path, where the name carries the information and not the data.
+        /// </summary>
+        IEnumerable<string> GetValueNames(RegistryRoot root, string subKeyPath);
     }
 }

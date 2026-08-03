@@ -41,6 +41,23 @@ namespace Macro_Polo.Core
             }
         }
 
+        public IEnumerable<string> GetValueNames(RegistryRoot root, string subKeyPath)
+        {
+            try
+            {
+                using (RegistryKey baseKey = OpenBaseKey(root))
+                using (RegistryKey key = baseKey.OpenSubKey(subKeyPath))
+                {
+                    return key == null ? new string[0] : key.GetValueNames();
+                }
+            }
+            catch (Exception ex)
+            {
+                Log.Warn("Failed listing values under " + root + "\\" + subKeyPath, ex);
+                return new string[0];
+            }
+        }
+
         /// <summary>
         /// Opens the 64-bit view on a 64-bit OS. The add-in is loaded in-process by Office, so it
         /// inherits Office's bitness; a 32-bit Office would otherwise be silently redirected into

@@ -87,6 +87,13 @@
     <value>They have already run: a macro signed by a trusted publisher is not held behind the message bar.</value>
   </data>
 
+  <data name="Title_RunsSilentlyTrustedDocument" xml:space="preserve">
+    <value>Macros run automatically</value>
+  </data>
+  <data name="Detail_RunsSilentlyTrustedDocument" xml:space="preserve">
+    <value>You chose to trust this document previously, so Office no longer asks and its macros run every time you open it.</value>
+  </data>
+
   <data name="Title_RequiresUserConsent" xml:space="preserve">
     <value>Macros are blocked until you allow them</value>
   </data>

@@ -25,7 +25,8 @@ namespace Macro_Polo.Core
             get
             {
                 return State == MacroState.RunsSilently
-                    || State == MacroState.RunsSilentlyTrustedLocation;
+                    || State == MacroState.RunsSilentlyTrustedLocation
+                    || State == MacroState.RunsSilentlyTrustedDocument;
             }
         }
 

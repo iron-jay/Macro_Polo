@@ -66,6 +66,9 @@ out of date.
   usually still sitting in the registry underneath the policy.
 - **Trusted Locations**, including the *allow subfolders* flag and the *disable all Trusted
   Locations* switch. A Trusted Location overrides the macro setting entirely.
+- **Trusted Documents.** Once *Enable Content* has been clicked, Office records the document and
+  stops asking — so its macros run on every subsequent open. Reporting such a file as awaiting
+  consent describes a prompt that no longer appears.
 - **Mark of the web** together with the *block macros from running in Office files from the
   Internet* policy, which cannot be overridden from inside Office.
 - **Excel 4.0 (XLM) macro sheets**, which `HasVBProject` does not report and which cannot be

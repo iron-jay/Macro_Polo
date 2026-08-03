@@ -1,3 +1,4 @@
+﻿using System;
 using Macro_Polo.Core;
 using Xunit;
 
@@ -278,6 +279,69 @@ namespace Macro_Polo.Core.Tests
             Assert.Equal(MacroState.BlockedFromInternet, status.State);
         }
 
+        /// <summary>
+        /// Once "Enable Content" has been clicked, Office stops asking - so the macros run on every
+        /// subsequent open, and reporting the file as awaiting consent describes a prompt that no
+        /// longer appears.
+        /// </summary>
+        [Fact]
+        public void A_document_the_user_already_trusted_runs_without_a_prompt()
+        {
+            MacroSecuritySettings settings = Settings(VbaWarningLevel.DisableWithNotification);
+            settings.TrustedDocuments.Add(@"C:\Users\someone\Documents\report.docm");
+
+            MacroStatus status = Evaluate(Document(), settings);
+
+            Assert.Equal(MacroState.RunsSilentlyTrustedDocument, status.State);
+            Assert.True(status.RunsWithoutPrompting);
+        }
+
+        /// <summary>
+        /// Office writes those records with forward slashes and unexpanded environment variables,
+        /// so a literal comparison against the host's path never matches.
+        /// </summary>
+        [Fact]
+        public void Trusted_document_paths_are_matched_however_office_wrote_them()
+        {
+            MacroSecuritySettings settings = Settings(VbaWarningLevel.DisableWithNotification);
+            settings.TrustedDocuments.Add(MacroSecuritySettings.NormalizePath("%USERPROFILE%/Documents/report.docm"));
+
+            string hostPath = System.IO.Path.Combine(
+                Environment.GetFolderPath(Environment.SpecialFolder.UserProfile), @"Documents\report.docm");
+
+            MacroStatus status = Evaluate(Document(path: hostPath), settings);
+
+            Assert.Equal(MacroState.RunsSilentlyTrustedDocument, status.State);
+        }
+
+        [Fact]
+        public void A_trusted_document_does_not_override_disable_all()
+        {
+            MacroSecuritySettings settings = Settings(VbaWarningLevel.DisableAll);
+            settings.TrustedDocuments.Add(@"C:\Users\someone\Documents\report.docm");
+
+            Assert.Equal(MacroState.BlockedByPolicy, Evaluate(Document(), settings).State);
+        }
+
+        [Fact]
+        public void Turning_off_trusted_documents_takes_them_out_of_the_reckoning()
+        {
+            MacroSecuritySettings settings = Settings(VbaWarningLevel.DisableWithNotification);
+            settings.AllTrustedDocumentsDisabled = true;
+            settings.TrustedDocuments.Add(@"C:\Users\someone\Documents\report.docm");
+
+            Assert.Equal(MacroState.RequiresUserConsent, Evaluate(Document(), settings).State);
+        }
+
+        [Fact]
+        public void An_untrusted_document_is_unaffected_by_other_documents_being_trusted()
+        {
+            MacroSecuritySettings settings = Settings(VbaWarningLevel.DisableWithNotification);
+            settings.TrustedDocuments.Add(@"C:\Users\someone\Documents\something else.docm");
+
+            Assert.Equal(MacroState.RequiresUserConsent, Evaluate(Document(), settings).State);
+        }
+
         private static MacroStatus Evaluate(DocumentMacroInfo document, MacroSecuritySettings settings)
         {
             return MacroStatusEvaluator.Evaluate(document, settings);
@@ -306,3 +370,4 @@ namespace Macro_Polo.Core.Tests
         }
     }
 }
+

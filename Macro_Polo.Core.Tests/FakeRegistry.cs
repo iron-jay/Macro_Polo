@@ -40,6 +40,16 @@ namespace Macro_Polo.Core.Tests
                 .ToList();
         }
 
+        public IEnumerable<string> GetValueNames(RegistryRoot root, string subKeyPath)
+        {
+            string prefix = root + "|" + subKeyPath + "|";
+
+            return _values.Keys
+                .Where(k => k.StartsWith(prefix, StringComparison.OrdinalIgnoreCase))
+                .Select(k => k.Substring(prefix.Length))
+                .ToList();
+        }
+
         private static string Key(RegistryRoot root, string subKeyPath, string valueName)
         {
             return root + "|" + subKeyPath + "|" + valueName;

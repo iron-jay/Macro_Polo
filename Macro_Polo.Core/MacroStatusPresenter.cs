@@ -37,6 +37,7 @@ namespace Macro_Polo.Core
 
                 case MacroState.RunsSilently:
                 case MacroState.RunsSilentlyTrustedLocation:
+                case MacroState.RunsSilentlyTrustedDocument:
                     return status.Document.IsVbaSigned && !status.Document.HasExcel4Macros
                         ? Severity.Safe
                         : Severity.Danger;

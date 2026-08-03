@@ -61,6 +61,9 @@ namespace Macro_Polo.Core
             settings.TrustedLocations.AddRange(ReadTrustedLocations(RegistryRoot.CurrentUser, _policyPath));
             settings.TrustedLocations.AddRange(ReadTrustedLocations(RegistryRoot.CurrentUser, _preferencePath));
 
+            settings.AllTrustedDocumentsDisabled = ReadTrustedDocumentFlag("DisableTrustedDocuments");
+            settings.TrustedDocuments.AddRange(ReadTrustedDocuments());
+
             return settings;
         }
 
@@ -102,6 +105,37 @@ namespace Macro_Polo.Core
                 ?? ReadInt(RegistryRoot.CurrentUser, _preferencePath + @"\Trusted Locations", valueName);
 
             return value.GetValueOrDefault() != 0;
+        }
+
+        private bool ReadTrustedDocumentFlag(string valueName)
+        {
+            int? value = ReadInt(RegistryRoot.LocalMachine, _policyPath + @"\Trusted Documents", valueName)
+                ?? ReadInt(RegistryRoot.CurrentUser, _policyPath + @"\Trusted Documents", valueName)
+                ?? ReadInt(RegistryRoot.CurrentUser, _preferencePath + @"\Trusted Documents", valueName);
+
+            return value.GetValueOrDefault() != 0;
+        }
+
+        /// <summary>
+        /// Reads the trust records. Each document is a value whose <em>name</em> is the path; the
+        /// data is a timestamp and flags whose meaning is not documented, and is deliberately not
+        /// interpreted here - the presence of the record is what Office acts on.
+        /// </summary>
+        private IEnumerable<string> ReadTrustedDocuments()
+        {
+            string path = _preferencePath + @"\Trusted Documents\TrustRecords";
+            var documents = new List<string>();
+
+            foreach (string valueName in _registry.GetValueNames(RegistryRoot.CurrentUser, path))
+            {
+                string normalized = MacroSecuritySettings.NormalizePath(valueName);
+                if (!string.IsNullOrEmpty(normalized))
+                {
+                    documents.Add(normalized);
+                }
+            }
+
+            return documents;
         }
 
         private IEnumerable<TrustedLocation> ReadTrustedLocations(RegistryRoot root, string securityPath)

@@ -19,6 +19,13 @@ namespace Macro_Polo.Core
         RunsSilently,
 
         /// <summary>
+        /// Macros run with no prompt because the user has previously chosen to trust this
+        /// document. Office remembers that decision and stops asking, so the macros have already
+        /// run by the time anyone looks at the file again.
+        /// </summary>
+        RunsSilentlyTrustedDocument,
+
+        /// <summary>
         /// Macros are blocked until the user clicks "Enable Content" on the trust bar.
         /// </summary>
         RequiresUserConsent,

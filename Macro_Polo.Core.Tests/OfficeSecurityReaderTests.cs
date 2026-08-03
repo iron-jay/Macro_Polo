@@ -1,3 +1,4 @@
+﻿using System;
 using Macro_Polo.Core;
 using Xunit;
 
@@ -172,9 +173,60 @@ namespace Macro_Polo.Core.Tests
                 new OfficeSecurityReader(registry, "16.0", "Excel").Read().WarningLevel);
         }
 
+        /// <summary>
+        /// Trust records are stored one value per document, with the path as the value name. The
+        /// data is a timestamp and flags whose meaning is undocumented, so only the presence of
+        /// the record is used.
+        /// </summary>
+        [Fact]
+        public void Trusted_documents_are_read_from_the_trust_records()
+        {
+            var registry = new FakeRegistry()
+                .Set(RegistryRoot.CurrentUser, Preference + @"\Trusted Documents\TrustRecords",
+                     @"%USERPROFILE%/Downloads/quarterly.docm", new byte[] { 1, 2, 3, 4 });
+
+            MacroSecuritySettings settings = Read(registry);
+
+            string expected = System.IO.Path.Combine(
+                Environment.GetFolderPath(Environment.SpecialFolder.UserProfile), @"Downloads\quarterly.docm");
+
+            Assert.Single(settings.TrustedDocuments);
+            Assert.True(settings.IsTrustedDocument(expected));
+            Assert.False(settings.IsTrustedDocument(@"C:\elsewhere\quarterly.docm"));
+        }
+
+        [Fact]
+        public void Turning_off_trusted_documents_is_read()
+        {
+            var registry = new FakeRegistry()
+                .Set(RegistryRoot.CurrentUser, Preference + @"\Trusted Documents", "DisableTrustedDocuments", 1)
+                .Set(RegistryRoot.CurrentUser, Preference + @"\Trusted Documents\TrustRecords", @"C:\x\y.docm", new byte[] { 1 });
+
+            MacroSecuritySettings settings = Read(registry);
+
+            Assert.True(settings.AllTrustedDocumentsDisabled);
+            Assert.False(settings.IsTrustedDocument(@"C:\x\y.docm"));
+        }
+
+        [Fact]
+        public void Turning_off_trusted_documents_by_policy_is_read()
+        {
+            var registry = new FakeRegistry()
+                .Set(RegistryRoot.LocalMachine, Policy + @"\Trusted Documents", "DisableTrustedDocuments", 1);
+
+            Assert.True(Read(registry).AllTrustedDocumentsDisabled);
+        }
+
+        [Fact]
+        public void No_trust_records_means_no_trusted_documents()
+        {
+            Assert.Empty(Read(new FakeRegistry()).TrustedDocuments);
+        }
+
         private static MacroSecuritySettings Read(FakeRegistry registry)
         {
             return new OfficeSecurityReader(registry, "16.0", "Word").Read();
         }
     }
 }
+

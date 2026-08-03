@@ -37,6 +37,14 @@ namespace Macro_Polo.Core
                 return new MacroStatus(MacroState.BlockedFromInternet, document, settings);
             }
 
+            // "Disable all without notification" is the one setting a remembered trust decision
+            // does not survive, so it is checked first.
+            if (settings.EffectiveWarningLevel != VbaWarningLevel.DisableAll
+                && settings.IsTrustedDocument(document.FullPath))
+            {
+                return new MacroStatus(MacroState.RunsSilentlyTrustedDocument, document, settings);
+            }
+
             MacroState state;
             switch (settings.EffectiveWarningLevel)
             {

@@ -12,6 +12,7 @@ namespace Macro_Polo.Core
         public MacroSecuritySettings()
         {
             TrustedLocations = new List<TrustedLocation>();
+            TrustedDocuments = new List<string>();
         }
 
         /// <summary>The effective macro setting.</summary>
@@ -37,6 +38,57 @@ namespace Macro_Polo.Core
         /// <see cref="TrustedLocations"/> are ignored by Office.
         /// </summary>
         public bool AllTrustedLocationsDisabled { get; set; }
+
+        /// <summary>
+        /// Documents the user has already chosen to trust, as full paths.
+        /// </summary>
+        /// <remarks>
+        /// Once "Enable Content" has been clicked, Office records the document and never asks
+        /// again - so a document listed here has its macros enabled on open regardless of the
+        /// macro setting. Without this the add-in reports such a file as waiting for consent when
+        /// the consent was given long ago and the macros run every time it is opened.
+        /// </remarks>
+        public List<string> TrustedDocuments { get; private set; }
+
+        /// <summary>The "Turn off Trusted Documents" setting.</summary>
+        public bool AllTrustedDocumentsDisabled { get; set; }
+
+        /// <summary>True when the user has previously trusted this document.</summary>
+        public bool IsTrustedDocument(string documentPath)
+        {
+            if (AllTrustedDocumentsDisabled || string.IsNullOrEmpty(documentPath))
+            {
+                return false;
+            }
+
+            string normalized = NormalizePath(documentPath);
+
+            foreach (string trusted in TrustedDocuments)
+            {
+                if (string.Equals(trusted, normalized, StringComparison.OrdinalIgnoreCase))
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
+        /// <summary>
+        /// Puts a path into a comparable form. Office writes trust records with forward slashes
+        /// and unexpanded environment variables - "%USERPROFILE%/Downloads/x.docm" - while the
+        /// host reports a plain Windows path, so neither side can be compared as it stands.
+        /// </summary>
+        internal static string NormalizePath(string path)
+        {
+            if (string.IsNullOrEmpty(path))
+            {
+                return null;
+            }
+
+            string expanded = Environment.ExpandEnvironmentVariables(path.Trim());
+            return expanded.Replace('/', '\\').TrimEnd('\\');
+        }
 
         /// <summary>
         /// The macro setting as Office will actually apply it. Office treats a missing value as
